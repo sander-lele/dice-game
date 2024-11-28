@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cb100rwourebf"]
+
+[ext_resource type="Script" path="res://scripts/dice_manager.gd" id="1_4vbp4"]
+
+[node name="dice_manager" type="Node2D"]
+script = ExtResource("1_4vbp4")
