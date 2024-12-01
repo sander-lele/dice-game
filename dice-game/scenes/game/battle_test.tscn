@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://drb0tcmp3plwc"]
+[gd_scene load_steps=4 format=3 uid="uid://drb0tcmp3plwc"]
 
 [ext_resource type="PackedScene" uid="uid://cb100rwourebf" path="res://scenes/game parts/dice_manager.tscn" id="1_cqu12"]
 [ext_resource type="Script" path="res://scripts/battle.gd" id="1_xjucm"]
+[ext_resource type="PackedScene" uid="uid://b3pox32bvc2d5" path="res://scenes/character and enemies/character_base.tscn" id="3_7vcim"]
 
 [node name="battle_test" type="Control"]
 layout_mode = 3
@@ -29,16 +30,21 @@ offset_bottom = -205.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="battle_UI"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="player" parent="battle_UI" instance=ExtResource("3_7vcim")]
+position = Vector2(247, 137)
 
-[node name="Control" type="Control" parent="battle_UI/HBoxContainer"]
-layout_mode = 2
+[node name="enemy_batch_0" type="Control" parent="battle_UI"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Sprite2D" parent="battle_UI/enemy_batch_0" instance=ExtResource("3_7vcim")]
+position = Vector2(946, 58)
+max_roll = 20
+dice_count = 2
+
+[node name="Sprite2D2" parent="battle_UI/enemy_batch_0" instance=ExtResource("3_7vcim")]
+position = Vector2(947, 258)
 
 [node name="bottom_UI" type="Control" parent="."]
 custom_minimum_size = Vector2(1152, 190)
@@ -116,4 +122,5 @@ text = "a thing comes in to attack!
 what do you do?"
 
 [connection signal="pressed" from="bottom_UI/HBoxContainer/button_panel/VBoxContainer/Roll" to="." method="_on_roll_pressed"]
+[connection signal="pressed" from="bottom_UI/HBoxContainer/button_panel/VBoxContainer/Fight" to="." method="_on_fight_pressed"]
 [connection signal="pressed" from="bottom_UI/HBoxContainer/button_panel/VBoxContainer/Reroll" to="." method="_on_reroll_pressed"]
