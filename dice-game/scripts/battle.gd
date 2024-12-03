@@ -2,26 +2,41 @@ extends Control
 
 var rng = RandomNumberGenerator.new()
 
-@onready var dice_manager = $dice_manager
+@onready var player_stats = $battle_UI/player.get_stats()
+
 var dice = []
 var damage = 0
 var rerolls = 3
+
+var player_attack = false
 
 @onready var roll_button = $bottom_UI/HBoxContainer/button_panel/VBoxContainer/Roll
 @onready var fight_button = $bottom_UI/HBoxContainer/button_panel/VBoxContainer/Fight
 @onready var reroll_button = $bottom_UI/HBoxContainer/button_panel/VBoxContainer/Reroll
 @onready var items_button = $bottom_UI/HBoxContainer/button_panel/VBoxContainer/Items
 
-@onready var active_character = $battle_UI/player
-
 var round = 1
 
 func _ready() -> void:
 	rng.randomize()
-
-func enemy_turn():
 	var enemies = $battle_UI.get_child(round).get_children()
 	for i in enemies.size():
+		enemies[i].connect("enemy_selected", Callable(self,"damage_enemy"))
+
+func damage_enemy(enemy):
+	if player_attack == true:
+		enemy.hit(damage)
+		player_attack = false
+		enemy_turn()
+		rerolls = 3
+		reroll_button.disabled = false
+		_on_roll_pressed()
+func enemy_turn():
+	#gets the curret batch of enemies
+	var enemies = $battle_UI.get_child(round).get_children()
+	#loop through the current batch of enemies
+	for i in enemies.size():
+		#gets the enemies stats, rolls based off the stats and then damages the players based of the roll
 		var stats = enemies[i].get_stats()
 		roll(stats[0],stats[1],stats[2],stats[3])
 		$battle_UI/player.hit(damage)
@@ -60,8 +75,7 @@ func button_set_reroll():
 
 func _on_roll_pressed() -> void:
 	button_set_reroll()
-	roll(1,6,4,1)
-	print(dice,damage)
+	roll(player_stats[0],player_stats[1],player_stats[2],player_stats[3])
 	write_text("you rolled " + str(dice) + "\nDo you want to fight or reroll?\nRerolls left:" + str(rerolls))
 
 
@@ -69,8 +83,8 @@ func _on_reroll_pressed() -> void:
 	rerolls -= 1
 	if rerolls <= 0:
 		reroll_button.disabled = true
-	roll(1,6,4,1)
+	roll(player_stats[0],player_stats[1],player_stats[2],player_stats[3])
 	write_text("you rolled " + str(dice) + "\nDo you want to fight or reroll?\nRerolls left:" + str(rerolls))
 
 func _on_fight_pressed() -> void:
-	enemy_turn()
+	player_attack = true

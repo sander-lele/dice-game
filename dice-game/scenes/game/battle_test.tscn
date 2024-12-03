@@ -1,6 +1,5 @@
-[gd_scene load_steps=4 format=3 uid="uid://drb0tcmp3plwc"]
+[gd_scene load_steps=3 format=3 uid="uid://drb0tcmp3plwc"]
 
-[ext_resource type="PackedScene" uid="uid://cb100rwourebf" path="res://scenes/game parts/dice_manager.tscn" id="1_cqu12"]
 [ext_resource type="Script" path="res://scripts/battle.gd" id="1_xjucm"]
 [ext_resource type="PackedScene" uid="uid://b3pox32bvc2d5" path="res://scenes/character and enemies/character_base.tscn" id="3_7vcim"]
 
@@ -18,8 +17,6 @@ grow_vertical = 2
 script = ExtResource("1_xjucm")
 metadata/_edit_use_anchors_ = true
 
-[node name="dice_manager" parent="." instance=ExtResource("1_cqu12")]
-
 [node name="battle_UI" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -32,19 +29,23 @@ grow_vertical = 2
 
 [node name="player" parent="battle_UI" instance=ExtResource("3_7vcim")]
 position = Vector2(247, 137)
+dice_count = 4
 
 [node name="enemy_batch_0" type="Control" parent="battle_UI"]
 anchors_preset = 0
+offset_top = -112.0
 offset_right = 40.0
-offset_bottom = 40.0
+offset_bottom = -72.0
 
 [node name="Sprite2D" parent="battle_UI/enemy_batch_0" instance=ExtResource("3_7vcim")]
-position = Vector2(946, 58)
+position = Vector2(894, 146)
+hp = 50
 max_roll = 20
-dice_count = 2
 
 [node name="Sprite2D2" parent="battle_UI/enemy_batch_0" instance=ExtResource("3_7vcim")]
-position = Vector2(947, 258)
+position = Vector2(895, 346)
+hp = 50
+dice_count = 3
 
 [node name="bottom_UI" type="Control" parent="."]
 custom_minimum_size = Vector2(1152, 190)
