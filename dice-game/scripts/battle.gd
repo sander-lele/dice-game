@@ -25,8 +25,8 @@ func _ready() -> void:
 
 func damage_enemy(enemy):
 	if player_attack == true:
-		enemy.hit(damage)
 		player_attack = false
+		enemy.hit(damage)
 		enemy_turn()
 		rerolls = 3
 		reroll_button.disabled = false
@@ -38,9 +38,12 @@ func enemy_turn():
 	for i in enemies.size():
 		#gets the enemies stats, rolls based off the stats and then damages the players based of the roll
 		var stats = enemies[i].get_stats()
-		roll(stats[0],stats[1],stats[2],stats[3])
-		$battle_UI/player.hit(damage)
-
+		if enemies[i].hp >= 0 and enemies[i].turn_counter <= 0:
+			roll(stats[0],stats[1],stats[2],stats[3])
+			enemies[i].attack()
+			$battle_UI/player.hit(damage)
+		enemies[i].tic_turn_counter()
+	enable_all_buttons()
 
 
 
@@ -73,10 +76,22 @@ func button_set_reroll():
 	reroll_button.visible = true
 	items_button.visible = true
 
+func disable_all_buttons():
+	roll_button.disabled = true
+	fight_button.disabled = true
+	reroll_button.disabled = true
+	items_button.disabled = true
+
+func enable_all_buttons():
+	roll_button.disabled = false
+	fight_button.disabled = false
+	reroll_button.disabled = false
+	items_button.disabled = false
+
 func _on_roll_pressed() -> void:
 	button_set_reroll()
 	roll(player_stats[0],player_stats[1],player_stats[2],player_stats[3])
-	write_text("you rolled " + str(dice) + "\nDo you want to fight or reroll?\nRerolls left:" + str(rerolls))
+	write_text("you rolled " + str(dice) + " and your damage is " + str(damage) + "\nDo you want to fight or reroll?\nRerolls left:" + str(rerolls))
 
 
 func _on_reroll_pressed() -> void:
@@ -84,7 +99,8 @@ func _on_reroll_pressed() -> void:
 	if rerolls <= 0:
 		reroll_button.disabled = true
 	roll(player_stats[0],player_stats[1],player_stats[2],player_stats[3])
-	write_text("you rolled " + str(dice) + "\nDo you want to fight or reroll?\nRerolls left:" + str(rerolls))
+	write_text("you rolled " + str(dice) + " and your damage is " + str(damage) + "\nDo you want to fight or reroll?\nRerolls left:" + str(rerolls))
 
 func _on_fight_pressed() -> void:
+	disable_all_buttons()
 	player_attack = true

@@ -38,14 +38,10 @@ offset_right = 40.0
 offset_bottom = -72.0
 
 [node name="Sprite2D" parent="battle_UI/enemy_batch_0" instance=ExtResource("3_7vcim")]
-position = Vector2(894, 146)
-hp = 50
+position = Vector2(958, 243)
+min_roll = 10
 max_roll = 20
-
-[node name="Sprite2D2" parent="battle_UI/enemy_batch_0" instance=ExtResource("3_7vcim")]
-position = Vector2(895, 346)
-hp = 50
-dice_count = 3
+turn_counter_start = 3
 
 [node name="bottom_UI" type="Control" parent="."]
 custom_minimum_size = Vector2(1152, 190)
