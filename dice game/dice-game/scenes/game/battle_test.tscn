@@ -1,0 +1,123 @@
+[gd_scene load_steps=3 format=3 uid="uid://drb0tcmp3plwc"]
+
+[ext_resource type="Script" path="res://scripts/battle.gd" id="1_xjucm"]
+[ext_resource type="PackedScene" uid="uid://b3pox32bvc2d5" path="res://scenes/character and enemies/character_base.tscn" id="3_7vcim"]
+
+[node name="battle_test" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 3.0
+offset_right = 1.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xjucm")
+metadata/_edit_use_anchors_ = true
+
+[node name="battle_UI" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 105.0
+offset_bottom = -205.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="player" parent="battle_UI" instance=ExtResource("3_7vcim")]
+position = Vector2(247, 137)
+dice_count = 4
+
+[node name="enemy_batch_0" type="Control" parent="battle_UI"]
+anchors_preset = 0
+offset_top = -112.0
+offset_right = 40.0
+offset_bottom = -72.0
+
+[node name="Sprite2D" parent="battle_UI/enemy_batch_0" instance=ExtResource("3_7vcim")]
+position = Vector2(958, 243)
+min_roll = 10
+max_roll = 20
+turn_counter_start = 3
+
+[node name="bottom_UI" type="Control" parent="."]
+custom_minimum_size = Vector2(1152, 190)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -200.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="bottom_UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -5.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="button_panel" type="Panel" parent="bottom_UI/HBoxContainer"]
+custom_minimum_size = Vector2(300, 200)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="bottom_UI/HBoxContainer/button_panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Roll" type="Button" parent="bottom_UI/HBoxContainer/button_panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Roll"
+
+[node name="Fight" type="Button" parent="bottom_UI/HBoxContainer/button_panel/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+text = "Fight!
+"
+
+[node name="Reroll" type="Button" parent="bottom_UI/HBoxContainer/button_panel/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+text = "Reroll"
+
+[node name="Items" type="Button" parent="bottom_UI/HBoxContainer/button_panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Items"
+
+[node name="text_panel" type="Panel" parent="bottom_UI/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="bottom_UI/HBoxContainer/text_panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -12.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "a thing comes in to attack!
+what do you do?"
+
+[connection signal="pressed" from="bottom_UI/HBoxContainer/button_panel/VBoxContainer/Roll" to="." method="_on_roll_pressed"]
+[connection signal="pressed" from="bottom_UI/HBoxContainer/button_panel/VBoxContainer/Fight" to="." method="_on_fight_pressed"]
+[connection signal="pressed" from="bottom_UI/HBoxContainer/button_panel/VBoxContainer/Reroll" to="." method="_on_reroll_pressed"]
