@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://b3pox32bvc2d5"]
+[gd_scene load_steps=3 format=3 uid="uid://c460jkgaugdi6"]
 
-[ext_resource type="Texture2D" uid="uid://cjr3otpi5bj2c" path="res://icon.svg" id="1_lbgw6"]
-[ext_resource type="Script" path="res://scripts/character_base.gd" id="2_xxyd1"]
+[ext_resource type="Texture2D" uid="uid://cjr3otpi5bj2c" path="res://icon.svg" id="1_2cikf"]
+[ext_resource type="Script" path="res://scripts/character_base.gd" id="2_xymbl"]
 
 [node name="Sprite2D" type="Sprite2D"]
-texture = ExtResource("1_lbgw6")
-script = ExtResource("2_xxyd1")
+texture = ExtResource("1_2cikf")
+script = ExtResource("2_xymbl")
+hp = 50
+dice_count = 3
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 custom_minimum_size = Vector2(180, 25)
@@ -46,7 +48,5 @@ offset_bottom = -73.0
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="enemy_script" type="Node" parent="."]
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

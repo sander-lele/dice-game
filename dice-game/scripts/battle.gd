@@ -10,7 +10,6 @@ var rerolls = 3
 
 var player_attack = false
 
-@onready var roll_button = $bottom_UI/HBoxContainer/button_panel/VBoxContainer/Roll
 @onready var fight_button = $bottom_UI/HBoxContainer/button_panel/VBoxContainer/Fight
 @onready var reroll_button = $bottom_UI/HBoxContainer/button_panel/VBoxContainer/Reroll
 @onready var items_button = $bottom_UI/HBoxContainer/button_panel/VBoxContainer/Items
@@ -19,6 +18,7 @@ var round = 1
 
 func _ready() -> void:
 	rng.randomize()
+	_on_roll_pressed()
 	var enemies = $battle_UI.get_child(round).get_children()
 	for i in enemies.size():
 		enemies[i].connect("enemy_selected", Callable(self,"damage_enemy"))
@@ -38,11 +38,12 @@ func enemy_turn():
 	for i in enemies.size():
 		#gets the enemies stats, rolls based off the stats and then damages the players based of the roll
 		var stats = enemies[i].get_stats()
-		if enemies[i].hp >= 0 and enemies[i].turn_counter <= 0:
-			roll(stats[0],stats[1],stats[2],stats[3])
-			enemies[i].attack()
-			$battle_UI/player.hit(damage)
 		enemies[i].tic_turn_counter()
+		if enemies[i].hp > 0 and enemies[i].turn_counter <= 0:
+			enemies[i].tic_turn_counter()
+			roll(stats[0],stats[1],stats[2],stats[3])
+			$battle_UI/player.hit(damage)
+			enemies[i].attack()
 	enable_all_buttons()
 
 
@@ -65,25 +66,21 @@ func roll(min_roll:int,max_roll:int,dice_count:int,multiplier=1.0):
 	
 
 func button_set_default():
-	roll_button.visible = true
 	fight_button.visible = false
 	reroll_button.visible = false
 	items_button.visible = true
 
 func button_set_reroll():
-	roll_button.visible = false
 	fight_button.visible = true
 	reroll_button.visible = true
 	items_button.visible = true
 
 func disable_all_buttons():
-	roll_button.disabled = true
 	fight_button.disabled = true
 	reroll_button.disabled = true
 	items_button.disabled = true
 
 func enable_all_buttons():
-	roll_button.disabled = false
 	fight_button.disabled = false
 	reroll_button.disabled = false
 	items_button.disabled = false

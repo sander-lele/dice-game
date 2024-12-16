@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://drb0tcmp3plwc"]
+[gd_scene load_steps=6 format=3 uid="uid://drb0tcmp3plwc"]
 
 [ext_resource type="Script" path="res://scripts/battle.gd" id="1_xjucm"]
 [ext_resource type="PackedScene" uid="uid://b3pox32bvc2d5" path="res://scenes/character and enemies/character_base.tscn" id="3_7vcim"]
+[ext_resource type="PackedScene" uid="uid://ddk0mdjc3rep3" path="res://scenes/character and enemies/bomb.tscn" id="3_18oqb"]
+[ext_resource type="PackedScene" uid="uid://dp2t5wmjh48ss" path="res://scenes/character and enemies/cannon_man.tscn" id="3_75rdu"]
+[ext_resource type="PackedScene" uid="uid://bd3jf0ytetlo6" path="res://scenes/character and enemies/hammer.tscn" id="5_0umg1"]
 
 [node name="battle_test" type="Control"]
 layout_mode = 3
@@ -37,11 +40,14 @@ offset_top = -112.0
 offset_right = 40.0
 offset_bottom = -72.0
 
-[node name="Sprite2D" parent="battle_UI/enemy_batch_0" instance=ExtResource("3_7vcim")]
-position = Vector2(958, 243)
-min_roll = 10
-max_roll = 20
-turn_counter_start = 3
+[node name="bomb" parent="battle_UI/enemy_batch_0" instance=ExtResource("3_18oqb")]
+position = Vector2(959, 330)
+
+[node name="Sprite2D2" parent="battle_UI/enemy_batch_0" instance=ExtResource("3_75rdu")]
+position = Vector2(959, 130)
+
+[node name="Sprite2D" parent="battle_UI/enemy_batch_0" instance=ExtResource("5_0umg1")]
+position = Vector2(749, 241)
 
 [node name="bottom_UI" type="Control" parent="."]
 custom_minimum_size = Vector2(1152, 190)
@@ -77,20 +83,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Roll" type="Button" parent="bottom_UI/HBoxContainer/button_panel/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-text = "Roll"
-
 [node name="Fight" type="Button" parent="bottom_UI/HBoxContainer/button_panel/VBoxContainer"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 text = "Fight!
 "
 
 [node name="Reroll" type="Button" parent="bottom_UI/HBoxContainer/button_panel/VBoxContainer"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 text = "Reroll"
@@ -118,6 +117,5 @@ grow_vertical = 2
 text = "a thing comes in to attack!
 what do you do?"
 
-[connection signal="pressed" from="bottom_UI/HBoxContainer/button_panel/VBoxContainer/Roll" to="." method="_on_roll_pressed"]
 [connection signal="pressed" from="bottom_UI/HBoxContainer/button_panel/VBoxContainer/Fight" to="." method="_on_fight_pressed"]
 [connection signal="pressed" from="bottom_UI/HBoxContainer/button_panel/VBoxContainer/Reroll" to="." method="_on_reroll_pressed"]

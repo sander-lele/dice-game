@@ -2,12 +2,17 @@ extends Sprite2D
 
 signal enemy_selected
 
+signal signal_hit
+signal signal_attack
+signal signal_turn_tick
+
 @export var hp: int = 100
 @export var min_roll: int = 1
 @export var max_roll: int = 6
 @export var dice_count: int = 1
 @export var multiplier: int = 1
 @export var turn_counter_start: int = 0
+#@export_enum("passive","aggressive") var attack_type = "passive"
 var turn_counter = 0
 
 func _ready() -> void:
@@ -25,6 +30,7 @@ func get_stats():
 	return [min_roll,max_roll,dice_count,multiplier]
 
 func attack():
+	emit_signal("signal_attack")
 	pass
 	#could be used later for animating
 
@@ -34,8 +40,10 @@ func tic_turn_counter():
 	else:
 		turn_counter -= 1
 	$turn_label.text = str(turn_counter)
+	emit_signal("signal_turn_tick")
 
-func hit(damage):
+func hit(damage=0):
+	emit_signal("signal_hit")
 	hp -= damage
 	$ProgressBar.value = hp
 	$ProgressBar/Label.text = str(hp)
