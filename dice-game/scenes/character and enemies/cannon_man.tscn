@@ -8,6 +8,7 @@
 self_modulate = Color(100, 1, 1, 1)
 texture = ExtResource("1_hyngr")
 script = ExtResource("2_sufp3")
+max_hp = 75
 min_roll = 20
 max_roll = 30
 turn_counter_start = 3

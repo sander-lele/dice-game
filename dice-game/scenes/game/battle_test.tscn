@@ -1,24 +1,68 @@
-[gd_scene load_steps=6 format=3 uid="uid://drb0tcmp3plwc"]
+[gd_scene load_steps=7 format=3 uid="uid://drb0tcmp3plwc"]
 
 [ext_resource type="Script" path="res://scripts/battle.gd" id="1_xjucm"]
 [ext_resource type="PackedScene" uid="uid://b3pox32bvc2d5" path="res://scenes/character and enemies/character_base.tscn" id="3_7vcim"]
-[ext_resource type="PackedScene" uid="uid://ddk0mdjc3rep3" path="res://scenes/character and enemies/bomb.tscn" id="3_18oqb"]
-[ext_resource type="PackedScene" uid="uid://dp2t5wmjh48ss" path="res://scenes/character and enemies/cannon_man.tscn" id="3_75rdu"]
-[ext_resource type="PackedScene" uid="uid://bd3jf0ytetlo6" path="res://scenes/character and enemies/hammer.tscn" id="5_0umg1"]
+
+[sub_resource type="Animation" id="Animation_jdnn2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("screen_transition/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_mhblj"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("screen_transition/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_6dxym"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("screen_transition/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2ohb3"]
+_data = {
+"RESET": SubResource("Animation_jdnn2"),
+"fade_in": SubResource("Animation_mhblj"),
+"fade_out": SubResource("Animation_6dxym")
+}
 
 [node name="battle_test" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1.0
-offset_top = 3.0
-offset_right = 1.0
-offset_bottom = 3.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xjucm")
-metadata/_edit_use_anchors_ = true
 
 [node name="battle_UI" type="Control" parent="."]
 layout_mode = 1
@@ -31,33 +75,47 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="player" parent="battle_UI" instance=ExtResource("3_7vcim")]
-position = Vector2(247, 137)
+position = Vector2(118, 138)
 dice_count = 4
 
-[node name="enemy_batch_0" type="Control" parent="battle_UI"]
+[node name="enemy_batch_1" type="Control" parent="battle_UI"]
 anchors_preset = 0
-offset_top = -112.0
-offset_right = 40.0
-offset_bottom = -72.0
 
-[node name="bomb" parent="battle_UI/enemy_batch_0" instance=ExtResource("3_18oqb")]
-position = Vector2(959, 330)
+[node name="enemy_batch_2" type="Control" parent="battle_UI"]
+anchors_preset = 0
+offset_left = 1000.0
+offset_right = 1000.0
 
-[node name="Sprite2D2" parent="battle_UI/enemy_batch_0" instance=ExtResource("3_75rdu")]
-position = Vector2(959, 130)
+[node name="enemy_batch_3" type="Control" parent="battle_UI"]
+anchors_preset = 0
+offset_left = 1000.0
+offset_right = 1000.0
 
-[node name="Sprite2D" parent="battle_UI/enemy_batch_0" instance=ExtResource("5_0umg1")]
-position = Vector2(749, 241)
+[node name="enemy_batch_4" type="Control" parent="battle_UI"]
+anchors_preset = 0
+offset_left = 1000.0
+offset_right = 1000.0
+
+[node name="enemy_batch_5" type="Control" parent="battle_UI"]
+anchors_preset = 0
+offset_left = 1000.0
+offset_right = 1000.0
+
+[node name="enemy_batch_6" type="Control" parent="battle_UI"]
+anchors_preset = 0
+offset_left = 1000.0
+offset_right = 1000.0
 
 [node name="bottom_UI" type="Control" parent="."]
-custom_minimum_size = Vector2(1152, 190)
+custom_minimum_size = Vector2(1150, 190)
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = -200.0
-offset_bottom = -10.0
+offset_right = 2.0
+offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -117,5 +175,21 @@ grow_vertical = 2
 text = "a thing comes in to attack!
 what do you do?"
 
+[node name="screen_transition" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2ohb3")
+}
+autoplay = "fade_in"
+
+[node name="ColorRect" type="ColorRect" parent="screen_transition"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
 [connection signal="pressed" from="bottom_UI/HBoxContainer/button_panel/VBoxContainer/Fight" to="." method="_on_fight_pressed"]
 [connection signal="pressed" from="bottom_UI/HBoxContainer/button_panel/VBoxContainer/Reroll" to="." method="_on_reroll_pressed"]
+[connection signal="animation_finished" from="screen_transition" to="." method="_on_screen_transition_animation_finished"]

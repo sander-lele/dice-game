@@ -3,11 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://cjr3otpi5bj2c" path="res://icon.svg" id="1_w7xrw"]
 [ext_resource type="Script" path="res://scripts/character_base.gd" id="2_8pji1"]
 
-[node name="Sprite2D" type="Sprite2D"]
+[node name="shield" type="Sprite2D"]
 texture = ExtResource("1_w7xrw")
 script = ExtResource("2_8pji1")
-hp = 150
-dice_count = 2
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 custom_minimum_size = Vector2(180, 25)

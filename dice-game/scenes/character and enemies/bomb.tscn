@@ -8,7 +8,7 @@
 self_modulate = Color(0, 0, 0, 1)
 texture = ExtResource("1_4700w")
 script = ExtResource("2_qaojb")
-hp = 30
+max_hp = 50
 min_roll = 30
 max_roll = 40
 turn_counter_start = 5

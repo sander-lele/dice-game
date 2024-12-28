@@ -1,16 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://bd3jf0ytetlo6"]
+[gd_scene load_steps=4 format=3 uid="uid://ca3ghrrmpayuj"]
 
-[ext_resource type="Texture2D" uid="uid://cjr3otpi5bj2c" path="res://icon.svg" id="1_jlqgs"]
-[ext_resource type="Script" path="res://scripts/character_base.gd" id="2_ejbp1"]
+[ext_resource type="Texture2D" uid="uid://cjr3otpi5bj2c" path="res://icon.svg" id="1_sj831"]
+[ext_resource type="Script" path="res://scripts/character_base.gd" id="2_yxb8k"]
+[ext_resource type="Script" path="res://scripts/enemies/healer_script.gd" id="3_m5c6g"]
 
-[node name="hammer" type="Sprite2D"]
-self_modulate = Color(0.385493, 0.385492, 0.385492, 1)
-texture = ExtResource("1_jlqgs")
-script = ExtResource("2_ejbp1")
-max_hp = 50
-min_roll = 3
-dice_count = 2
-turn_counter_start = 2
+[node name="healer" type="Sprite2D"]
+self_modulate = Color(1, 100, 1, 1)
+texture = ExtResource("1_sj831")
+script = ExtResource("2_yxb8k")
+min_roll = 0
+max_roll = 0
+turn_counter_start = 4
+attack_type = "passive"
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 custom_minimum_size = Vector2(180, 25)
@@ -51,5 +52,8 @@ offset_bottom = -73.0
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="enemy_script" type="Node" parent="."]
+script = ExtResource("3_m5c6g")
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
