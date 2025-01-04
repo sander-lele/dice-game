@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://b663dmgc0ijps"]
-
-[ext_resource type="PackedScene" uid="uid://dgjw0g3w0xb3y" path="res://scenes/character and enemies/character_base.tscn" id="1_y2qcg"]
-
-[node name="boss_dagger" instance=ExtResource("1_y2qcg")]
-max_hp = 125
-min_roll = 3
-max_roll = 9
-dice_count = 2

@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://7ycafkmvm2rn"]
-
-[ext_resource type="PackedScene" uid="uid://dgjw0g3w0xb3y" path="res://scenes/character and enemies/character_base.tscn" id="1_gt21x"]
-[ext_resource type="Script" path="res://scripts/enemies/boss_healer.gd" id="2_0xipn"]
-
-[node name="boss_healer" instance=ExtResource("1_gt21x")]
-
-[node name="Node" type="Node" parent="." index="3"]
-script = ExtResource("2_0xipn")
