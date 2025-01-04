@@ -1,55 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bd3jf0ytetlo6"]
+[gd_scene load_steps=2 format=3 uid="uid://bd3jf0ytetlo6"]
 
-[ext_resource type="Texture2D" uid="uid://cjr3otpi5bj2c" path="res://icon.svg" id="1_jlqgs"]
-[ext_resource type="Script" path="res://scripts/character_base.gd" id="2_ejbp1"]
+[ext_resource type="PackedScene" uid="uid://dgjw0g3w0xb3y" path="res://scenes/character and enemies/character_base.tscn" id="1_0n06b"]
 
-[node name="hammer" type="Sprite2D"]
-self_modulate = Color(0.385493, 0.385492, 0.385492, 1)
-texture = ExtResource("1_jlqgs")
-script = ExtResource("2_ejbp1")
+[node name="hammer" instance=ExtResource("1_0n06b")]
 max_hp = 50
-min_roll = 3
-dice_count = 2
+min_roll = 5
+max_roll = 10
 turn_counter_start = 2
-
-[node name="ProgressBar" type="ProgressBar" parent="."]
-custom_minimum_size = Vector2(180, 25)
-offset_left = -88.0
-offset_top = -100.0
-offset_right = 92.0
-offset_bottom = -73.0
-value = 100.0
-show_percentage = false
-
-[node name="Label" type="Label" parent="ProgressBar"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "100"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Button" type="Button" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -64.0
-offset_top = -64.0
-offset_right = -64.0
-offset_bottom = -64.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="turn_label" type="Label" parent="."]
-offset_left = -128.0
-offset_top = -100.0
-offset_right = -88.0
-offset_bottom = -73.0
-text = "0"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

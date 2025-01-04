@@ -1,6 +1,8 @@
 extends Control
 
-
+func _ready() -> void:
+	BatMak.difficulty = 1.0
+	BatMak.enemy_cap_min = 2
 
 
 

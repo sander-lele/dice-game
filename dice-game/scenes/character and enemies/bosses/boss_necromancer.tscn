@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://hgirwchu6agl"]
+
+[ext_resource type="PackedScene" uid="uid://dgjw0g3w0xb3y" path="res://scenes/character and enemies/character_base.tscn" id="1_nye4c"]
+[ext_resource type="Script" path="res://scripts/enemies/necromancer.gd" id="2_qnjhm"]
+
+[node name="boss_necromancer" instance=ExtResource("1_nye4c")]
+turn_counter_start = 3
+attack_type = "passive"
+
+[node name="Node" type="Node" parent="." index="3"]
+script = ExtResource("2_qnjhm")
+heal_amount = 25
