@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://c460jkgaugdi6"]
+
+[ext_resource type="PackedScene" uid="uid://dgjw0g3w0xb3y" path="res://scenes/character and enemies/character_base.tscn" id="1_ppsqv"]
+
+[node name="dagger" instance=ExtResource("1_ppsqv")]
+max_hp = 75
+dice_count = 2

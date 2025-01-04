@@ -1,0 +1,193 @@
+[gd_scene load_steps=8 format=3 uid="uid://drb0tcmp3plwc"]
+
+[ext_resource type="Script" path="res://scripts/battle.gd" id="1_xjucm"]
+[ext_resource type="PackedScene" uid="uid://dgjw0g3w0xb3y" path="res://scenes/character and enemies/character_base.tscn" id="2_4mi33"]
+[ext_resource type="PackedScene" uid="uid://nedh3ey0mh0p" path="res://scenes/game parts/buff_select.tscn" id="3_3cuuu"]
+
+[sub_resource type="Animation" id="Animation_jdnn2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("screen_transition/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_mhblj"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("screen_transition/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_6dxym"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("screen_transition/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2ohb3"]
+_data = {
+"RESET": SubResource("Animation_jdnn2"),
+"fade_in": SubResource("Animation_mhblj"),
+"fade_out": SubResource("Animation_6dxym")
+}
+
+[node name="battle_test" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xjucm")
+
+[node name="battle_UI" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 105.0
+offset_bottom = -205.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="player" parent="battle_UI" instance=ExtResource("2_4mi33")]
+position = Vector2(138, 155)
+dice_count = 4
+
+[node name="enemy_batch_1" type="Control" parent="battle_UI"]
+anchors_preset = 0
+
+[node name="enemy_batch_2" type="Control" parent="battle_UI"]
+anchors_preset = 0
+offset_left = 1000.0
+offset_right = 1000.0
+
+[node name="enemy_batch_3" type="Control" parent="battle_UI"]
+anchors_preset = 0
+offset_left = 1000.0
+offset_right = 1000.0
+
+[node name="enemy_batch_4" type="Control" parent="battle_UI"]
+anchors_preset = 0
+offset_left = 1000.0
+offset_right = 1000.0
+
+[node name="bottom_UI" type="Control" parent="."]
+custom_minimum_size = Vector2(1150, 190)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -200.0
+offset_right = 2.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="bottom_UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -5.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="button_panel" type="Panel" parent="bottom_UI/HBoxContainer"]
+custom_minimum_size = Vector2(300, 200)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="bottom_UI/HBoxContainer/button_panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Fight" type="Button" parent="bottom_UI/HBoxContainer/button_panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Fight!
+"
+
+[node name="Reroll" type="Button" parent="bottom_UI/HBoxContainer/button_panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Reroll"
+
+[node name="Items" type="Button" parent="bottom_UI/HBoxContainer/button_panel/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+text = "Items"
+
+[node name="text_panel" type="Panel" parent="bottom_UI/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="bottom_UI/HBoxContainer/text_panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -12.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "a thing comes in to attack!
+what do you do?"
+
+[node name="buff_select" parent="." instance=ExtResource("3_3cuuu")]
+visible = false
+layout_mode = 1
+
+[node name="screen_transition" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2ohb3")
+}
+autoplay = "fade_in"
+
+[node name="ColorRect" type="ColorRect" parent="screen_transition"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[connection signal="pressed" from="bottom_UI/HBoxContainer/button_panel/VBoxContainer/Fight" to="." method="_on_fight_pressed"]
+[connection signal="pressed" from="bottom_UI/HBoxContainer/button_panel/VBoxContainer/Reroll" to="." method="_on_reroll_pressed"]
+[connection signal="buff_selected" from="buff_select" to="." method="_on_buff_select_buff_selected"]
+[connection signal="heal" from="buff_select" to="." method="_on_buff_select_heal"]
+[connection signal="animation_finished" from="screen_transition" to="." method="_on_screen_transition_animation_finished"]
