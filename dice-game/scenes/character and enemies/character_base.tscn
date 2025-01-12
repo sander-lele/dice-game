@@ -1,35 +1,81 @@
-[gd_scene load_steps=4 format=3 uid="uid://dgjw0g3w0xb3y"]
+[gd_scene load_steps=13 format=3 uid="uid://dgjw0g3w0xb3y"]
 
-[ext_resource type="Texture2D" uid="uid://cjr3otpi5bj2c" path="res://icon.svg" id="1_lq3he"]
 [ext_resource type="Script" path="res://scripts/character_base.gd" id="2_km2ha"]
+[ext_resource type="FontFile" uid="uid://cjymnschacl3d" path="res://font(s)/prstartk.ttf" id="2_mnwpe"]
+[ext_resource type="AudioStream" uid="uid://dk0s40pk5qqw4" path="res://SFX/Damage.wav" id="4_o1pv3"]
+[ext_resource type="AudioStream" uid="uid://c8r8cl5wcmoov" path="res://SFX/Heal.wav" id="5_n2bf6"]
+[ext_resource type="AnimationLibrary" uid="uid://bmiijyhhr81s" path="res://animations/animation base.res" id="5_n3bxh"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_2dumn"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("1_lq3he")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 5.0
-}]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ukahq"]
 
-[node name="character_base" type="AnimatedSprite2D"]
-sprite_frames = SubResource("SpriteFrames_2dumn")
-animation = &"idle"
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0b0dq"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3qcff"]
+
+[sub_resource type="Theme" id="Theme_majwb"]
+Button/styles/disabled = SubResource("StyleBoxEmpty_ukahq")
+Button/styles/hover = SubResource("StyleBoxFlat_0b0dq")
+Button/styles/normal = SubResource("StyleBoxEmpty_3qcff")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4tpag"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6153j"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7kw3c"]
+bg_color = Color(0.934036, 0, 0.295994, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 0)
+
+[node name="character_base" type="Node2D" groups=["enemies"]]
 script = ExtResource("2_km2ha")
 
-[node name="Button" type="Button" parent="."]
+[node name="sprite" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
+
+[node name="Button" type="Button" parent="." groups=["button"]]
 offset_left = -64.0
 offset_top = -64.0
 offset_right = 64.0
 offset_bottom = 64.0
+theme = SubResource("Theme_majwb")
+disabled = true
 
-[node name="turn_label" type="Label" parent="."]
-offset_left = -111.0
+[node name="turn_counter" type="Panel" parent="."]
+offset_left = -127.0
 offset_top = -100.0
-offset_right = -82.0
-offset_bottom = -73.0
+offset_right = -87.0
+offset_bottom = -60.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_4tpag")
+
+[node name="turn_label" type="Label" parent="turn_counter"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_mnwpe")
 text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -39,6 +85,9 @@ offset_left = -77.0
 offset_top = -100.0
 offset_right = 76.0
 offset_bottom = -73.0
+theme_override_fonts/font = ExtResource("2_mnwpe")
+theme_override_styles/background = SubResource("StyleBoxFlat_6153j")
+theme_override_styles/fill = SubResource("StyleBoxFlat_7kw3c")
 show_percentage = false
 
 [node name="Label" type="Label" parent="ProgressBar"]
@@ -48,8 +97,28 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "0"
+theme_override_fonts/font = ExtResource("2_mnwpe")
+theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="sounds" type="Node" parent="."]
+
+[node name="hit" type="AudioStreamPlayer" parent="sounds"]
+stream = ExtResource("4_o1pv3")
+bus = &"sound"
+
+[node name="heal" type="AudioStreamPlayer" parent="sounds"]
+stream = ExtResource("5_n2bf6")
+volume_db = -10.0
+bus = &"sound"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": ExtResource("5_n3bxh")
+}
+autoplay = "idle"
+
+[connection signal="signal_attack" from="." to="." method="_on_signal_attack"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

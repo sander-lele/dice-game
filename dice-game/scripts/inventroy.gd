@@ -53,4 +53,5 @@ func _on_button3_pressed() -> void:
 
 
 func _on_heal_back_pressed() -> void:
+	visible = false
 	emit_signal("heal")

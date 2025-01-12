@@ -24,7 +24,7 @@ var enemy_cap_min = 1
 var enemy_cap = 2
 
 var enemy_sets = {
-	1:[dag,ham,shi,bom],
+	1:[dag,ham],
 	2:[dag,ham,shi,can,bom],
 	3:[dag,ham,shi,can,nec,bom],
 	4:[dag,ham,shi,can,bom,hel,nec]

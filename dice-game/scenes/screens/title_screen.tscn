@@ -1,0 +1,159 @@
+[gd_scene load_steps=11 format=3 uid="uid://s8iey18wryda"]
+
+[ext_resource type="Script" path="res://scripts/screens/title_screen.gd" id="1_o8cvb"]
+[ext_resource type="Theme" uid="uid://dyln1jvjn76v8" path="res://game UI theme.tres" id="1_ruexh"]
+[ext_resource type="Shader" path="res://title.gdshader" id="2_idkst"]
+[ext_resource type="Texture2D" uid="uid://di1cs0dwucefq" path="res://assets/vignette.png" id="3_xqsvd"]
+[ext_resource type="Texture2D" uid="uid://nrjd5vsccpax" path="res://assets/title.png" id="5_5kuwn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yjbig"]
+shader = ExtResource("2_idkst")
+shader_parameter/debanding_ditter = -0.065
+shader_parameter/blur = 0.0
+shader_parameter/vignette_darkness = -0.495
+shader_parameter/vignette = ExtResource("3_xqsvd")
+
+[sub_resource type="Animation" id="Animation_bj0yk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_wb3kc"]
+resource_name = "fade in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_yue8u"]
+resource_name = "fade out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ecjmc"]
+_data = {
+"RESET": SubResource("Animation_bj0yk"),
+"fade in": SubResource("Animation_wb3kc"),
+"fade out": SubResource("Animation_yue8u")
+}
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -29.0
+offset_right = -29.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_ruexh")
+script = ExtResource("1_o8cvb")
+
+[node name="vignette" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_yjbig")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.753984, 0.753984, 0.753984, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 29.0
+offset_top = -84.0
+offset_right = 485.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_5kuwn")
+stretch_mode = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_right = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "dice game"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(200, 600)
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="play" type="Button" parent="HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+text = "play"
+
+[node name="guide" type="Button" parent="HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+text = "guide"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ecjmc")
+}
+autoplay = "fade in"
+
+[node name="ColorRect" type="ColorRect" parent="AnimationPlayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/guide" to="." method="_on_guide_pressed"]

@@ -1,7 +1,24 @@
-[gd_scene load_steps=2 format=3 uid="uid://c460jkgaugdi6"]
+[gd_scene load_steps=4 format=3 uid="uid://c460jkgaugdi6"]
 
 [ext_resource type="PackedScene" uid="uid://dgjw0g3w0xb3y" path="res://scenes/character and enemies/character_base.tscn" id="1_ppsqv"]
+[ext_resource type="Texture2D" uid="uid://ch4lbe4se7etv" path="res://assets/dagger.png" id="2_urd63"]
+[ext_resource type="AnimationLibrary" uid="uid://bqjy4rw5krox6" path="res://animations/dagger.res" id="3_covja"]
 
 [node name="dagger" instance=ExtResource("1_ppsqv")]
+position = Vector2(-0.25, -1)
 max_hp = 75
 dice_count = 2
+
+[node name="sprite" parent="." index="0"]
+texture = ExtResource("2_urd63")
+
+[node name="Button" parent="." index="1"]
+offset_left = -25.0
+offset_top = -57.0
+offset_right = 26.0
+offset_bottom = 57.0
+
+[node name="AnimationPlayer" parent="." index="5"]
+libraries = {
+"": ExtResource("3_covja")
+}

@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://dju53gt1ra8i1"]
+
+[ext_resource type="Texture2D" uid="uid://dvmip1ic6fdlb" path="res://assets/dice_bottom.png" id="1_q4ich"]
+[ext_resource type="Script" path="res://scripts/title_dice.gd" id="2_s7gvd"]
+[ext_resource type="FontFile" uid="uid://cjymnschacl3d" path="res://font(s)/prstartk.ttf" id="3_c6mdr"]
+
+[sub_resource type="FontVariation" id="FontVariation_k1cu8"]
+base_font = ExtResource("3_c6mdr")
+spacing_glyph = -3
+
+[node name="TextureRect" type="TextureRect" groups=["dice_base"]]
+show_behind_parent = true
+custom_minimum_size = Vector2(140, 140)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 4.0
+offset_right = -1010.0
+offset_bottom = -504.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_q4ich")
+stretch_mode = 4
+script = ExtResource("2_s7gvd")
+
+[node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("FontVariation_k1cu8")
+theme_override_font_sizes/font_size = 64
+text = "6"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

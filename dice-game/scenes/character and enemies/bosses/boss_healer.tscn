@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://scripts/enemies/boss_healer.gd" id="2_0xipn"]
 
 [node name="boss_healer" instance=ExtResource("1_gt21x")]
+turn_counter_start = 4
 
 [node name="Node" type="Node" parent="." index="3"]
 script = ExtResource("2_0xipn")

@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://biwgw6se31m4e"]
+[gd_scene load_steps=7 format=3 uid="uid://biwgw6se31m4e"]
 
+[ext_resource type="Theme" uid="uid://dyln1jvjn76v8" path="res://game UI theme.tres" id="1_1bgev"]
 [ext_resource type="Script" path="res://scripts/screens/end_screen.gd" id="1_y1kcd"]
 
 [sub_resource type="Animation" id="Animation_yu4bi"]
@@ -61,7 +62,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_1bgev")
 script = ExtResource("1_y1kcd")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 custom_minimum_size = Vector2(1000, 600)
@@ -81,7 +92,7 @@ alignment = 1
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_vertical = 1
-text = "You are dead!"
+text = "You died."
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -96,14 +107,14 @@ vertical_alignment = 1
 layout_mode = 2
 alignment = 1
 
-[node name="retry" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="retry" type="Button" parent="VBoxContainer/HBoxContainer" groups=["button"]]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "retry"
 
-[node name="menu" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="menu" type="Button" parent="VBoxContainer/HBoxContainer" groups=["button"]]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 size_flags_horizontal = 0

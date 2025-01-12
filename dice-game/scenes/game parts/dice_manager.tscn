@@ -1,6 +1,84 @@
-[gd_scene load_steps=2 format=3 uid="uid://cb100rwourebf"]
+[gd_scene load_steps=5 format=3 uid="uid://cb100rwourebf"]
 
 [ext_resource type="Script" path="res://scripts/dice_manager.gd" id="1_4vbp4"]
+[ext_resource type="Theme" uid="uid://dyln1jvjn76v8" path="res://game UI theme.tres" id="1_5ds4e"]
+[ext_resource type="AudioStream" uid="uid://b2lqewhn8ysfc" path="res://SFX/dice roll.wav" id="2_8qxi4"]
+[ext_resource type="AudioStream" uid="uid://b8guc77cwnf60" path="res://SFX/dice_result.wav" id="3_dh85o"]
 
-[node name="dice_manager" type="Node2D"]
+[node name="dice_manager" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 562.0
+offset_bottom = 81.0
+theme = ExtResource("1_5ds4e")
 script = ExtResource("1_4vbp4")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 562.0
+offset_bottom = 81.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(445, 70)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 8
+
+[node name="Panel2" type="Panel" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(100, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="damage_counter" type="VBoxContainer" parent="Panel/HBoxContainer/Panel2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="label" type="Label" parent="Panel/HBoxContainer/Panel2/damage_counter"]
+layout_mode = 2
+text = "damage"
+horizontal_alignment = 1
+
+[node name="number" type="Label" parent="Panel/HBoxContainer/Panel2/damage_counter"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="random_timer" type="Timer" parent="."]
+wait_time = 0.05
+
+[node name="reveal_timer" type="Timer" parent="."]
+wait_time = 0.25
+
+[node name="done" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_8qxi4")
+volume_db = -10.0
+bus = &"sound"
+
+[node name="roll" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_dh85o")
+volume_db = -10.0
+pitch_scale = 3.0
+bus = &"sound"
+
+[connection signal="timeout" from="random_timer" to="." method="_on_random_timer_timeout"]
+[connection signal="timeout" from="reveal_timer" to="." method="_on_reveal_timer_timeout"]

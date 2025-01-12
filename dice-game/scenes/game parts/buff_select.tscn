@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://nedh3ey0mh0p"]
+[gd_scene load_steps=3 format=3 uid="uid://nedh3ey0mh0p"]
 
+[ext_resource type="Theme" uid="uid://dyln1jvjn76v8" path="res://game UI theme.tres" id="1_4vllv"]
 [ext_resource type="Script" path="res://scripts/inventroy.gd" id="1_wyc4w"]
 
 [node name="buff_select" type="Control"]
@@ -10,7 +11,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_4vllv")
 script = ExtResource("1_wyc4w")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.092, 0.092, 0.092, 0.648)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -45,6 +56,7 @@ offset_bottom = 45.0
 text = "name"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="buff" type="Label" parent="VBoxContainer/HBoxContainer/buff1"]
 layout_mode = 0
@@ -130,7 +142,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="heal_back" type="Button" parent="VBoxContainer"]
-custom_minimum_size = Vector2(200, 20)
+custom_minimum_size = Vector2(270, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
