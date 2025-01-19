@@ -18,13 +18,13 @@ var bcan = preload("res://scenes/character and enemies/bosses/boss_cannon.tscn")
 var bhel = preload("res://scenes/character and enemies/bosses/boss_healer.tscn")
 var bnec = preload("res://scenes/character and enemies/bosses/boss_necromancer.tscn") 
 
-var loop = 1
+var loop = 4
 var difficulty = 1.0
 var enemy_cap_min = 1
 var enemy_cap = 2
 
 var enemy_sets = {
-	1:[dag,ham],
+	1:[dag,ham,shi,can],
 	2:[dag,ham,shi,can,bom],
 	3:[dag,ham,shi,can,nec,bom],
 	4:[dag,ham,shi,can,bom,hel,nec]
@@ -58,7 +58,7 @@ func create_boss_set():
 			enemies = enemy_sets[4]
 		var enemy
 		if i == 0:
-			enemy = bosses[rng.randi_range(0,bosses.size()-1)]
+			enemy = bosses[rng.randi_range(0,enemies.size()-1)]
 		else:
 			enemy = enemies[rng.randi_range(0,enemies.size()-1)]
 		current_set.append(enemy)

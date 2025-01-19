@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="dice game"
-run/main_scene="res://scenes/game/battle_test.tscn"
+run/main_scene="res://scenes/screens/title_screen.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -30,4 +30,4 @@ enemies=""
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
-environment/defaults/default_clear_color=Color(0.27451, 0.27451, 0.27451, 1)
+environment/defaults/default_clear_color=Color(0.188235, 0.180392, 0.188235, 1)

@@ -1,11 +1,27 @@
-[gd_scene load_steps=3 format=3 uid="uid://jo66eh2syraq"]
+[gd_scene load_steps=5 format=3 uid="uid://jo66eh2syraq"]
 
 [ext_resource type="PackedScene" uid="uid://dgjw0g3w0xb3y" path="res://scenes/character and enemies/character_base.tscn" id="1_582nv"]
 [ext_resource type="Script" path="res://scripts/enemies/boss_shield.gd" id="2_73eaf"]
+[ext_resource type="Texture2D" uid="uid://oyclcdqd85to" path="res://assets/bossshield.png" id="3_e6hcd"]
+[ext_resource type="AnimationLibrary" uid="uid://vfjiu3i0n2y3" path="res://animations/bossshield.res" id="4_qpiaq"]
 
 [node name="boss_shield" instance=ExtResource("1_582nv")]
 max_hp = 150
 max_roll = 4
 
+[node name="Button" parent="." index="0"]
+offset_left = -81.0
+offset_top = -58.0
+offset_right = 39.0
+offset_bottom = 107.0
+
 [node name="Node" type="Node" parent="." index="3"]
 script = ExtResource("2_73eaf")
+
+[node name="sprite" parent="." index="4"]
+texture = ExtResource("3_e6hcd")
+
+[node name="AnimationPlayer" parent="." index="6"]
+libraries = {
+"": ExtResource("4_qpiaq")
+}

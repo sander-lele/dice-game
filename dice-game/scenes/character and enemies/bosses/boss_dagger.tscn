@@ -1,9 +1,26 @@
-[gd_scene load_steps=2 format=3 uid="uid://b663dmgc0ijps"]
+[gd_scene load_steps=4 format=3 uid="uid://b663dmgc0ijps"]
 
 [ext_resource type="PackedScene" uid="uid://dgjw0g3w0xb3y" path="res://scenes/character and enemies/character_base.tscn" id="1_y2qcg"]
+[ext_resource type="Texture2D" uid="uid://ddgpuj71cgcgq" path="res://assets/bossdagger.png" id="2_s5rur"]
+[ext_resource type="AnimationLibrary" uid="uid://dnw15ltyc4bj1" path="res://animations/bossdagger.res" id="3_g3i5e"]
 
 [node name="boss_dagger" instance=ExtResource("1_y2qcg")]
-max_hp = 125
+max_hp = 90
 min_roll = 3
-max_roll = 9
+max_roll = 5
 dice_count = 2
+
+[node name="Button" parent="." index="0"]
+offset_left = -57.0
+offset_top = -55.0
+offset_right = 87.0
+offset_bottom = 104.0
+
+[node name="sprite" parent="." index="3"]
+position = Vector2(39, 50)
+texture = ExtResource("2_s5rur")
+
+[node name="AnimationPlayer" parent="." index="5"]
+libraries = {
+"": ExtResource("3_g3i5e")
+}

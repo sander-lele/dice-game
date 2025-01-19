@@ -6,17 +6,19 @@
 
 [node name="dagger" instance=ExtResource("1_ppsqv")]
 position = Vector2(-0.25, -1)
-max_hp = 75
+max_hp = 50
 dice_count = 2
+metadata/_edit_horizontal_guides_ = [56.0]
 
-[node name="sprite" parent="." index="0"]
-texture = ExtResource("2_urd63")
-
-[node name="Button" parent="." index="1"]
+[node name="Button" parent="." index="0"]
 offset_left = -25.0
 offset_top = -57.0
 offset_right = 26.0
 offset_bottom = 57.0
+
+[node name="sprite" parent="." index="3"]
+position = Vector2(0, 0)
+texture = ExtResource("2_urd63")
 
 [node name="AnimationPlayer" parent="." index="5"]
 libraries = {

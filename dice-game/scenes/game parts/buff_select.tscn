@@ -56,7 +56,7 @@ offset_bottom = 45.0
 text = "name"
 horizontal_alignment = 1
 vertical_alignment = 1
-autowrap_mode = 2
+autowrap_mode = 3
 
 [node name="buff" type="Label" parent="VBoxContainer/HBoxContainer/buff1"]
 layout_mode = 0
@@ -65,7 +65,7 @@ offset_top = 80.0
 offset_right = 189.0
 offset_bottom = 170.0
 text = "bla bla bla bla"
-autowrap_mode = 2
+autowrap_mode = 3
 
 [node name="Button" type="Button" parent="VBoxContainer/HBoxContainer/buff1"]
 layout_mode = 0
@@ -87,6 +87,7 @@ offset_bottom = 45.0
 text = "name"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="buff" type="Label" parent="VBoxContainer/HBoxContainer/buff2"]
 layout_mode = 0
@@ -95,7 +96,7 @@ offset_top = 80.0
 offset_right = 189.0
 offset_bottom = 170.0
 text = "bla bla bla bla"
-autowrap_mode = 2
+autowrap_mode = 3
 
 [node name="Button" type="Button" parent="VBoxContainer/HBoxContainer/buff2"]
 layout_mode = 0
@@ -117,6 +118,7 @@ offset_bottom = 45.0
 text = "name"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="buff" type="Label" parent="VBoxContainer/HBoxContainer/buff3"]
 layout_mode = 0
@@ -125,7 +127,7 @@ offset_top = 80.0
 offset_right = 189.0
 offset_bottom = 170.0
 text = "bla bla bla blaasddddddddd"
-autowrap_mode = 2
+autowrap_mode = 3
 
 [node name="Button" type="Button" parent="VBoxContainer/HBoxContainer/buff3"]
 layout_mode = 0

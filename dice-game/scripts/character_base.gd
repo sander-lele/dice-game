@@ -30,7 +30,7 @@ func play_hit():
 	$sounds/hit.play()
 
 func play_heal():
-	if hp != max_hp:
+	if hp != max_hp and hp != 0:
 		$sounds/heal.pitch_scale = rng.randf_range(0.75,1.25)
 		$sounds/heal.play()
 
@@ -58,11 +58,10 @@ func get_stats():
 	return [min_roll,max_roll,dice_count,multiplier]
 
 func attack():
-	if attack_type == "aggressive":
-		$AnimationPlayer.play("attack")
+	$AnimationPlayer.play("attack")
 
 func tic_turn_counter():
-	if visible == true:
+	if visible == true and hp != 0:
 		turn_counter -= 1
 		turn_label.text = str(turn_counter)
 		emit_signal("signal_turn_tick")
@@ -84,8 +83,10 @@ func heal(heal_amount=10):
 	$ProgressBar/Label.text = str(hp)
 
 func revive(heal_amount=10):
-	play_heal()
 	if hp <= 0:
+		print("revive")
+		play_heal()
+		$AnimationPlayer.play_backwards("die")
 		hp = clamp(10 * BatMak.difficulty,0,max_hp)
 		$ProgressBar.value = hp
 		$ProgressBar/Label.text = str(hp)
@@ -93,7 +94,7 @@ func revive(heal_amount=10):
 		visible = true
 
 func die():
-	visible = false
+	$AnimationPlayer.play("die")
 
 func heal_prot(prot=heal_per_round):
 	play_heal()
@@ -123,7 +124,9 @@ func _on_buff_select_buff_selected(array) -> void:
 	$ProgressBar.value = hp
 	$ProgressBar/Label.text = str(hp)
 
-
+func counter_visible(boolean:bool):
+	if turn_counter_start != 0:
+		$turn_counter.visible = boolean
 
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:

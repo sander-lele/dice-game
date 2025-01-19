@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://ddk0mdjc3rep3"]
+[gd_scene load_steps=5 format=3 uid="uid://ddk0mdjc3rep3"]
 
 [ext_resource type="PackedScene" uid="uid://dgjw0g3w0xb3y" path="res://scenes/character and enemies/character_base.tscn" id="1_34o6e"]
+[ext_resource type="Texture2D" uid="uid://bvn3e78mhbaaq" path="res://assets/bomb.png" id="3_l7svd"]
 [ext_resource type="Script" path="res://scripts/enemies/bomb_script.gd" id="3_tyybo"]
+[ext_resource type="AnimationLibrary" uid="uid://cg5bmoiqhj13n" path="res://animations/bomb.res" id="4_e7hnr"]
 
 [node name="bomb" instance=ExtResource("1_34o6e")]
 max_hp = 30
@@ -9,5 +11,21 @@ min_roll = 20
 max_roll = 30
 turn_counter_start = 5
 
+[node name="Button" parent="." index="0"]
+offset_left = -34.0
+offset_top = -55.0
+offset_right = 31.0
+
 [node name="enemy_script" type="Node" parent="." index="3"]
 script = ExtResource("3_tyybo")
+
+[node name="sprite" parent="." index="4"]
+position = Vector2(21, 7)
+texture = ExtResource("3_l7svd")
+
+[node name="AnimationPlayer" parent="." index="6"]
+libraries = {
+"": ExtResource("4_e7hnr")
+}
+
+[connection signal="signal_turn_tick" from="." to="enemy_script" method="_on_bomb_signal_turn_tick"]

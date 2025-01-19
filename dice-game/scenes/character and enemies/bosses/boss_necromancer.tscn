@@ -1,12 +1,29 @@
-[gd_scene load_steps=3 format=3 uid="uid://hgirwchu6agl"]
+[gd_scene load_steps=5 format=3 uid="uid://hgirwchu6agl"]
 
 [ext_resource type="PackedScene" uid="uid://dgjw0g3w0xb3y" path="res://scenes/character and enemies/character_base.tscn" id="1_nye4c"]
 [ext_resource type="Script" path="res://scripts/enemies/necromancer.gd" id="2_qnjhm"]
+[ext_resource type="Texture2D" uid="uid://b4j8l21t035cc" path="res://assets/boss_necro1.png" id="3_brxek"]
+[ext_resource type="AnimationLibrary" uid="uid://brpb0n5t3klyv" path="res://animations/bossnecro.res" id="4_j5c05"]
 
 [node name="boss_necromancer" instance=ExtResource("1_nye4c")]
 turn_counter_start = 3
 attack_type = "passive"
 
+[node name="Button" parent="." index="0"]
+offset_left = -62.0
+offset_top = -56.0
+offset_right = 53.0
+offset_bottom = 76.0
+
 [node name="Node" type="Node" parent="." index="3"]
 script = ExtResource("2_qnjhm")
 heal_amount = 25
+
+[node name="sprite" parent="." index="4"]
+position = Vector2(-26, 10)
+texture = ExtResource("3_brxek")
+
+[node name="AnimationPlayer" parent="." index="6"]
+libraries = {
+"": ExtResource("4_j5c05")
+}

@@ -1,10 +1,27 @@
-[gd_scene load_steps=3 format=3 uid="uid://dp2t5wmjh48ss"]
+[gd_scene load_steps=5 format=3 uid="uid://dp2t5wmjh48ss"]
 
 [ext_resource type="PackedScene" uid="uid://dgjw0g3w0xb3y" path="res://scenes/character and enemies/character_base.tscn" id="1_ug5j0"]
+[ext_resource type="Texture2D" uid="uid://ba87rp4eqg5vc" path="res://assets/cannon.png" id="2_6lulx"]
 [ext_resource type="Script" path="res://scripts/enemies/cannon_man.gd" id="3_k4s2a"]
+[ext_resource type="AnimationLibrary" uid="uid://b4iksbvanb6cw" path="res://animations/cannon.res" id="4_os8e0"]
 
 [node name="cannon_man" instance=ExtResource("1_ug5j0")]
 turn_counter_start = 3
 
+[node name="Button" parent="." index="0"]
+offset_left = -45.0
+offset_top = -57.0
+offset_right = 18.0
+offset_bottom = 48.0
+
 [node name="enemy_script" type="Node" parent="." index="3"]
 script = ExtResource("3_k4s2a")
+
+[node name="sprite" parent="." index="4"]
+position = Vector2(0, 6)
+texture = ExtResource("2_6lulx")
+
+[node name="AnimationPlayer" parent="." index="6"]
+libraries = {
+"": ExtResource("4_os8e0")
+}

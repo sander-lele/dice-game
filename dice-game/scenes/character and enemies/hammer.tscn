@@ -1,9 +1,28 @@
-[gd_scene load_steps=2 format=3 uid="uid://bd3jf0ytetlo6"]
+[gd_scene load_steps=4 format=3 uid="uid://bd3jf0ytetlo6"]
 
 [ext_resource type="PackedScene" uid="uid://dgjw0g3w0xb3y" path="res://scenes/character and enemies/character_base.tscn" id="1_0n06b"]
+[ext_resource type="Texture2D" uid="uid://bmw36d2jmfp72" path="res://assets/hammer.png" id="2_dfeb7"]
+[ext_resource type="AnimationLibrary" uid="uid://can0y7tdffkeg" path="res://animations/hammer.res" id="3_gqkuf"]
 
 [node name="hammer" instance=ExtResource("1_0n06b")]
+position = Vector2(-2, 5)
 max_hp = 50
 min_roll = 5
 max_roll = 10
 turn_counter_start = 2
+metadata/_edit_horizontal_guides_ = [31.0, 50.0]
+
+[node name="Button" parent="." index="0"]
+offset_left = -27.0
+offset_top = -60.0
+offset_right = 52.0
+offset_bottom = 45.0
+
+[node name="sprite" parent="." index="3"]
+position = Vector2(0, 38)
+texture = ExtResource("2_dfeb7")
+
+[node name="AnimationPlayer" parent="." index="5"]
+libraries = {
+"": ExtResource("3_gqkuf")
+}

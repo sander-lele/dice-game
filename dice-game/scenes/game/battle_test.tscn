@@ -2,7 +2,6 @@
 
 [ext_resource type="Theme" uid="uid://dyln1jvjn76v8" path="res://game UI theme.tres" id="1_31wod"]
 [ext_resource type="Script" path="res://scripts/battle.gd" id="1_xjucm"]
-[ext_resource type="PackedScene" uid="uid://dgjw0g3w0xb3y" path="res://scenes/character and enemies/character_base.tscn" id="2_4mi33"]
 [ext_resource type="Script" path="res://scripts/sound_manager.gd" id="2_vh8gg"]
 [ext_resource type="PackedScene" uid="uid://nedh3ey0mh0p" path="res://scenes/game parts/buff_select.tscn" id="3_3cuuu"]
 [ext_resource type="AudioStream" uid="uid://cxr6ha6cbel6" path="res://SFX/tapping.wav" id="3_uusr7"]
@@ -10,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://denn1majmgb4r" path="res://SFX/Stardust.mp3" id="5_j2j2p"]
 [ext_resource type="Texture2D" uid="uid://0we4eepgtydt" path="res://assets/background.png" id="7_mvhkd"]
 [ext_resource type="PackedScene" uid="uid://cb100rwourebf" path="res://scenes/game parts/dice_manager.tscn" id="8_ks3nu"]
+[ext_resource type="PackedScene" uid="uid://c0wedsfsav8vy" path="res://scenes/character and enemies/player.tscn" id="8_s70le"]
 
 [sub_resource type="Animation" id="Animation_jdnn2"]
 length = 0.001
@@ -110,28 +110,27 @@ offset_bottom = -205.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="player" parent="battle_UI" instance=ExtResource("2_4mi33")]
-position = Vector2(138, 155)
+[node name="character_base" parent="battle_UI" instance=ExtResource("8_s70le")]
+position = Vector2(135, 169)
 dice_count = 4
-multiplier = 5
 
 [node name="enemy_batch_1" type="Control" parent="battle_UI"]
 anchors_preset = 0
 
 [node name="enemy_batch_2" type="Control" parent="battle_UI"]
 anchors_preset = 0
-offset_left = 1000.0
-offset_right = 1000.0
+offset_left = 1700.0
+offset_right = 1700.0
 
 [node name="enemy_batch_3" type="Control" parent="battle_UI"]
 anchors_preset = 0
-offset_left = 1000.0
-offset_right = 1000.0
+offset_left = 1700.0
+offset_right = 1700.0
 
 [node name="enemy_batch_4" type="Control" parent="battle_UI"]
 anchors_preset = 0
-offset_left = 1000.0
-offset_right = 1000.0
+offset_left = 1700.0
+offset_right = 1700.0
 
 [node name="bottom_UI" type="Control" parent="."]
 custom_minimum_size = Vector2(1150, 190)

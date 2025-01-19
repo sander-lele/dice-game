@@ -2,7 +2,8 @@ extends Control
 
 var rng = RandomNumberGenerator.new()
 
-@onready var player_stats = $battle_UI/player.get_stats()
+@onready var player = $battle_UI/character_base
+@onready var player_stats = $battle_UI/character_base.get_stats()
 @onready var buff_selection = $buff_select
 @onready var dice_manage = $dice_manager
 
@@ -16,7 +17,7 @@ var player_attack = false
 
 @warning_ignore("shadowed_global_identifier")
 var round = 1
-var enemy_positions = [Vector2(1051,133),Vector2(874,33),Vector2(874,227),Vector2(682,127)]
+var enemy_positions = [Vector2(1051,140),Vector2(874,40),Vector2(874,234),Vector2(682,134)]
 
 func _ready() -> void:
 	rng.randomize()
@@ -67,9 +68,10 @@ func enemy_turn():
 			await $dice_manager/reveal_timer.timeout
 			await get_tree().create_timer(0.25).timeout
 			enemies[i].attack()
-			$battle_UI/player.hit(dice_manage.damage)
+			await  enemies[i].signal_attack
+			player.hit(dice_manage.damage)
 			await get_tree().create_timer(0.5).timeout
-	if $battle_UI/player.hp <= 0:
+	if player.hp <= 0:
 		$screen_transition.play("fade_out")
 	if round == 4:
 		check_boss_end()
@@ -86,10 +88,12 @@ func check_round_end():
 		if enemies[i].hp == 0:
 			dead_enemies += 1
 	if dead_enemies == enemies.size():
-		#removes the dead enemies.
 		for i in enemies.size():
 			enemies[i].remove_from_group("current_enemies")
-			enemies[i].queue_free()
+			enemies[i].add_to_group("remove_later")
+			if get_tree().get_nodes_in_group("remove_later2").size() != 0:
+				for n in get_tree().get_nodes_in_group("remove_later2").size():
+					get_tree().get_nodes_in_group("remove_later2")[n].queue_free()
 		#checks if round is 4 and creates new enemy batch.
 		round += 1
 		if round != 4:
@@ -97,13 +101,9 @@ func check_round_end():
 		else:
 			set_boss()
 		#heals the player
-		$battle_UI/player.heal_prot(25)
+		player.heal_prot(25)
 		#goes to the next batch.
-		var tween = create_tween()
-		tween.set_parallel()
-		tween.tween_property($battle_UI.get_child(round),"position:x",0,2).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
-		tween.tween_property($Parallax2D,"scroll_offset:x",-160,2).as_relative().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
-		await tween.finished
+		tween()
 		enable_all_buttons()
 		_on_roll_pressed()
 	else:
@@ -122,15 +122,16 @@ func check_boss_end():
 		#removes the dead enemies.
 		for i in enemies.size():
 			enemies[i].remove_from_group("current_enemies")
-			enemies[i].queue_free()
+			enemies[i].add_to_group("remove_later2")
+			for n in get_tree().get_nodes_in_group("remove_later").size():
+				get_tree().get_nodes_in_group("remove_later")[n].queue_free()
 		new_loop()
+		
 		set_battle()
-		$battle_UI/player.heal_prot(25)
+		player.heal_prot(25)
 		buff_selection.show_buff()
 		await  buff_selection.buff_selected
-		var tween = create_tween()
-		tween.tween_property($battle_UI.get_child(round),"position:x",0,2).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
-		await tween.finished
+		tween()
 		enable_all_buttons()
 		_on_roll_pressed()
 	else:
@@ -147,6 +148,15 @@ func new_loop():
 		#this feels dumb but eh. this if statement is so that the loop skips over the player.
 		if i != 0:
 			$battle_UI.get_child(i).position.x = 1000
+
+func tween():
+	var tween = create_tween()
+	tween.set_parallel()
+	tween.tween_property($battle_UI.get_child(round),"position:x",0,3).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property($Parallax2D,"scroll_offset:x",-500,3).as_relative().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	if (round-1) != 0:
+		tween.tween_property($battle_UI.get_child(round-1),"position:x",-1700,3).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC).as_relative()
+	await tween.finished
 
 func write_text(text):
 	#for now just writes text. will be useful when animating it later

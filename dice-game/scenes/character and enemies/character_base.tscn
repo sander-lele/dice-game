@@ -4,7 +4,7 @@
 [ext_resource type="FontFile" uid="uid://cjymnschacl3d" path="res://font(s)/prstartk.ttf" id="2_mnwpe"]
 [ext_resource type="AudioStream" uid="uid://dk0s40pk5qqw4" path="res://SFX/Damage.wav" id="4_o1pv3"]
 [ext_resource type="AudioStream" uid="uid://c8r8cl5wcmoov" path="res://SFX/Heal.wav" id="5_n2bf6"]
-[ext_resource type="AnimationLibrary" uid="uid://bmiijyhhr81s" path="res://animations/animation base.res" id="5_n3bxh"]
+[ext_resource type="AnimationLibrary" uid="uid://5c8cwoonig5s" path="res://animations/animation_base.res" id="5_omjvl"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ukahq"]
 
@@ -49,15 +49,13 @@ border_color = Color(1, 1, 1, 0)
 
 [node name="character_base" type="Node2D" groups=["enemies"]]
 script = ExtResource("2_km2ha")
-
-[node name="sprite" type="Sprite2D" parent="."]
-scale = Vector2(3, 3)
+metadata/_edit_horizontal_guides_ = [50.0, 146.0]
 
 [node name="Button" type="Button" parent="." groups=["button"]]
 offset_left = -64.0
 offset_top = -64.0
 offset_right = 64.0
-offset_bottom = 64.0
+offset_bottom = 50.0
 theme = SubResource("Theme_majwb")
 disabled = true
 
@@ -102,6 +100,10 @@ theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="sprite" type="Sprite2D" parent="."]
+position = Vector2(0, 50)
+scale = Vector2(3, 3)
+
 [node name="sounds" type="Node" parent="."]
 
 [node name="hit" type="AudioStreamPlayer" parent="sounds"]
@@ -115,7 +117,7 @@ bus = &"sound"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": ExtResource("5_n3bxh")
+"": ExtResource("5_omjvl")
 }
 autoplay = "idle"
 

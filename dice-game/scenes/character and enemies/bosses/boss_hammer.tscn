@@ -1,8 +1,23 @@
-[gd_scene load_steps=2 format=3 uid="uid://jobuqtkow8ka"]
+[gd_scene load_steps=4 format=3 uid="uid://jobuqtkow8ka"]
 
 [ext_resource type="PackedScene" uid="uid://dgjw0g3w0xb3y" path="res://scenes/character and enemies/character_base.tscn" id="1_syxhk"]
+[ext_resource type="Texture2D" uid="uid://4tjrgmvvpq5v" path="res://assets/bosshammer.png" id="2_wdw4l"]
+[ext_resource type="AnimationLibrary" uid="uid://d3qggnrr0yf3u" path="res://animations/bosshammer.res" id="3_2sm2p"]
 
 [node name="boss_hammer" instance=ExtResource("1_syxhk")]
 min_roll = 5
 max_roll = 20
 turn_counter_start = 3
+
+[node name="Button" parent="." index="0"]
+offset_left = -29.0
+offset_top = -49.0
+
+[node name="sprite" parent="." index="3"]
+position = Vector2(-1.90735e-06, 60)
+texture = ExtResource("2_wdw4l")
+
+[node name="AnimationPlayer" parent="." index="5"]
+libraries = {
+"": ExtResource("3_2sm2p")
+}

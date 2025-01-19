@@ -1,7 +1,23 @@
-[gd_scene load_steps=2 format=3 uid="uid://3t0o0ccitkfd"]
+[gd_scene load_steps=4 format=3 uid="uid://3t0o0ccitkfd"]
 
 [ext_resource type="PackedScene" uid="uid://dgjw0g3w0xb3y" path="res://scenes/character and enemies/character_base.tscn" id="1_v4q7y"]
+[ext_resource type="Texture2D" uid="uid://c114evbvl3nac" path="res://assets/shield.png" id="2_2cjl4"]
+[ext_resource type="AnimationLibrary" uid="uid://bmiijyhhr81s" path="res://animations/shield.res" id="3_xjqbh"]
 
 [node name="shield" instance=ExtResource("1_v4q7y")]
 max_hp = 75
 max_roll = 5
+
+[node name="Button" parent="." index="0"]
+offset_left = -35.0
+offset_top = -52.0
+offset_right = 34.0
+
+[node name="sprite" parent="." index="3"]
+position = Vector2(16, -49)
+texture = ExtResource("2_2cjl4")
+
+[node name="AnimationPlayer" parent="." index="5"]
+libraries = {
+"": ExtResource("3_xjqbh")
+}
