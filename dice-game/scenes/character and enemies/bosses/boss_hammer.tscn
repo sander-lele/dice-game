@@ -5,6 +5,7 @@
 [ext_resource type="AnimationLibrary" uid="uid://d3qggnrr0yf3u" path="res://animations/bosshammer.res" id="3_2sm2p"]
 
 [node name="boss_hammer" instance=ExtResource("1_syxhk")]
+max_hp = 75
 min_roll = 5
 max_roll = 20
 turn_counter_start = 3
@@ -14,10 +15,13 @@ offset_left = -29.0
 offset_top = -49.0
 
 [node name="sprite" parent="." index="3"]
-position = Vector2(-1.90735e-06, 60)
+position = Vector2(-19, 59)
 texture = ExtResource("2_wdw4l")
 
 [node name="AnimationPlayer" parent="." index="5"]
 libraries = {
 "": ExtResource("3_2sm2p")
 }
+
+[node name="CPUParticles2D" parent="." index="6"]
+position = Vector2(0, 50)

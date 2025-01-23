@@ -6,13 +6,26 @@
 [ext_resource type="AnimationLibrary" uid="uid://covj4mmgtlxfv" path="res://animations/bosshealer.res" id="4_x5djc"]
 
 [node name="boss_healer" instance=ExtResource("1_gt21x")]
+max_hp = 75
 turn_counter_start = 4
 
 [node name="Button" parent="." index="0"]
-offset_left = -100.0
-offset_top = -73.0
-offset_right = 65.0
-offset_bottom = 131.0
+offset_left = -84.0
+offset_top = -91.0
+offset_right = 81.0
+offset_bottom = 113.0
+
+[node name="turn_counter" parent="." index="1"]
+offset_left = -111.0
+offset_top = -118.0
+offset_right = -71.0
+offset_bottom = -78.0
+
+[node name="ProgressBar" parent="." index="2"]
+offset_left = -61.0
+offset_top = -118.0
+offset_right = 92.0
+offset_bottom = -91.0
 
 [node name="Node" type="Node" parent="." index="3"]
 script = ExtResource("2_0xipn")
@@ -26,3 +39,6 @@ texture = ExtResource("3_y37id")
 libraries = {
 "": ExtResource("4_x5djc")
 }
+
+[node name="CPUParticles2D" parent="." index="7"]
+position = Vector2(5, 113)

@@ -7,15 +7,28 @@
 
 [node name="boss_bomb" instance=ExtResource("1_lpufn")]
 position = Vector2(2, -21)
-max_hp = 75
+max_hp = 30
 min_roll = 50
 max_roll = 60
 turn_counter_start = 8
 
 [node name="Button" parent="." index="0"]
-offset_top = -60.0
-offset_right = 114.0
-offset_bottom = 146.0
+offset_left = -63.0
+offset_top = -89.0
+offset_right = 115.0
+offset_bottom = 117.0
+
+[node name="turn_counter" parent="." index="1"]
+offset_left = -126.0
+offset_top = -129.0
+offset_right = -86.0
+offset_bottom = -89.0
+
+[node name="ProgressBar" parent="." index="2"]
+offset_left = -76.0
+offset_top = -129.0
+offset_right = 77.0
+offset_bottom = -102.0
 
 [node name="Node" type="Node" parent="." index="3"]
 script = ExtResource("2_c6tox")
@@ -28,5 +41,8 @@ texture = ExtResource("3_v0ig2")
 libraries = {
 "": ExtResource("4_qlk5m")
 }
+
+[node name="CPUParticles2D" parent="." index="7"]
+position = Vector2(1, 117)
 
 [connection signal="signal_turn_tick" from="." to="Node" method="_on_bomb_signal_turn_tick"]

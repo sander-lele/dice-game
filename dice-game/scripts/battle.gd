@@ -51,6 +51,8 @@ func damage_enemy(enemy):
 	if player_attack == true:
 		player_attack = false
 		enemy.hit(dice_manage.damage)
+		player.attack()
+		StatCount.damage_dealt += dice_manage.damage
 		enemy_turn()
 		rerolls = 3
 
@@ -63,15 +65,18 @@ func enemy_turn():
 		#gets the enemies stats, rolls based off the stats and then damages the players based of the roll
 		var stats = enemies[i].get_stats()
 		enemies[i].tic_turn_counter()
-		if enemies[i].hp > 0 and enemies[i].turn_counter <= 0 and enemies[i].attack_type == "aggressive":
-			dice_manage.roll(stats[0],stats[1],stats[2],stats[3])
-			await $dice_manager/reveal_timer.timeout
+		if enemies[i].hp > 0 and enemies[i].turn_counter <= 0:
+			if enemies[i].attack_type == "aggressive":
+				dice_manage.roll(stats[0],stats[1],stats[2],stats[3])
+				await $dice_manager/reveal_timer.timeout
 			await get_tree().create_timer(0.25).timeout
 			enemies[i].attack()
 			await  enemies[i].signal_attack
-			player.hit(dice_manage.damage)
+			if enemies[i].attack_type == "aggressive":
+				player.hit(dice_manage.damage)
 			await get_tree().create_timer(0.5).timeout
 	if player.hp <= 0:
+		StatCount.battle_died = round
 		$screen_transition.play("fade_out")
 	if round == 4:
 		check_boss_end()
@@ -88,6 +93,7 @@ func check_round_end():
 		if enemies[i].hp == 0:
 			dead_enemies += 1
 	if dead_enemies == enemies.size():
+		StatCount.battles_won += 1
 		for i in enemies.size():
 			enemies[i].remove_from_group("current_enemies")
 			enemies[i].add_to_group("remove_later")
@@ -119,6 +125,7 @@ func check_boss_end():
 		if enemies[i].hp == 0:
 			dead_enemies += 1
 	if dead_enemies == enemies.size():
+		StatCount.battles_won += 1
 		#removes the dead enemies.
 		for i in enemies.size():
 			enemies[i].remove_from_group("current_enemies")
@@ -142,6 +149,7 @@ func new_loop():
 	round = 1
 	BatMak.difficulty += 0.2
 	BatMak.loop += 1
+	StatCount.rounds += 1
 	if BatMak.enemy_cap <= 4:
 		BatMak.enemy_cap += 1
 	for i in $battle_UI.get_child_count():
@@ -182,7 +190,7 @@ func _on_roll_pressed() -> void:
 	button_set_reroll()
 	dice_manage.roll(player_stats[0],player_stats[1],player_stats[2],player_stats[3])
 	write_text("you rolled " + str(dice_manage.dice.size()) + " dice and your damage is " + str(dice_manage.damage) + "\nDo you want to fight or reroll?\nRerolls left:" + str(rerolls))
-
+	StatCount.dice_rolled += dice_manage.dice.size()
 
 func _on_reroll_pressed() -> void:
 	rerolls -= 1
@@ -190,6 +198,7 @@ func _on_reroll_pressed() -> void:
 		reroll_button.disabled = true
 	dice_manage.roll(player_stats[0],player_stats[1],player_stats[2],player_stats[3])
 	write_text("you rolled " + str(dice_manage.dice.size()) + " dice and your damage is " + str(dice_manage.damage) + "\nDo you want to fight or reroll?\nRerolls left:" + str(rerolls))
+	StatCount.dice_rolled += dice_manage.dice.size()
 
 func _on_fight_pressed() -> void:
 	get_tree().call_group("enemies","enable_button")
@@ -203,7 +212,7 @@ func _on_screen_transition_animation_finished(anim_name: StringName) -> void:
 
 
 func _on_buff_select_buff_selected(array) -> void:
-	await  $battle_UI/player._on_buff_select_buff_selected(array)
+	await  $battle_UI/character_base._on_buff_select_buff_selected(array)
 	player_stats = $battle_UI/player.get_stats()
 
 

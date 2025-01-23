@@ -1,11 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://c0wedsfsav8vy"]
+[gd_scene load_steps=17 format=3 uid="uid://c0wedsfsav8vy"]
 
 [ext_resource type="Script" path="res://scripts/character_base.gd" id="1_w3xab"]
 [ext_resource type="FontFile" uid="uid://cjymnschacl3d" path="res://font(s)/prstartk.ttf" id="2_bnj5v"]
 [ext_resource type="Texture2D" uid="uid://dcvtn6xt5q6pu" path="res://assets/player.png" id="3_81ej3"]
 [ext_resource type="AudioStream" uid="uid://dk0s40pk5qqw4" path="res://SFX/Damage.wav" id="3_ohjdf"]
 [ext_resource type="AudioStream" uid="uid://c8r8cl5wcmoov" path="res://SFX/Heal.wav" id="4_ay8ha"]
+[ext_resource type="AudioStream" uid="uid://b8tfsebxiocrm" path="res://SFX/death.wav" id="6_06i77"]
 [ext_resource type="AnimationLibrary" uid="uid://6df04wwcx45p" path="res://animations/player.res" id="6_bcxn7"]
+[ext_resource type="Texture2D" uid="uid://c0w51umiuexhm" path="res://assets/heal plus.png" id="7_ecpmk"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ukahq"]
 
@@ -47,6 +49,10 @@ border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
 border_color = Color(1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_qorss"]
+offsets = PackedFloat32Array(0.0108108, 0.313514, 0.713513, 1)
+colors = PackedColorArray(0, 100, 0, 0, 0, 100, 0, 1, 0.42, 100, 0.42, 1, 1, 100, 1, 0)
 
 [node name="player" type="Node2D" groups=["enemies"]]
 script = ExtResource("1_w3xab")
@@ -117,11 +123,31 @@ stream = ExtResource("4_ay8ha")
 volume_db = -10.0
 bus = &"sound"
 
+[node name="death" type="AudioStreamPlayer" parent="sounds"]
+stream = ExtResource("6_06i77")
+volume_db = -15.0
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": ExtResource("6_bcxn7")
 }
 autoplay = "idle"
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(0, 77)
+emitting = false
+amount = 40
+lifetime = 1.5
+one_shot = true
+draw_order = 1
+texture = ExtResource("7_ecpmk")
+emission_shape = 1
+emission_sphere_radius = 60.43
+direction = Vector2(1, -1)
+gravity = Vector2(0, -200)
+linear_accel_max = 100.0
+color = Color(0.0627384, 0.891309, 0.0529235, 1)
+color_ramp = SubResource("Gradient_qorss")
 
 [connection signal="signal_attack" from="." to="." method="_on_signal_attack"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

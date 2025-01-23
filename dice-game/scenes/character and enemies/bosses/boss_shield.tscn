@@ -6,14 +6,25 @@
 [ext_resource type="AnimationLibrary" uid="uid://vfjiu3i0n2y3" path="res://animations/bossshield.res" id="4_qpiaq"]
 
 [node name="boss_shield" instance=ExtResource("1_582nv")]
-max_hp = 150
-max_roll = 4
+max_roll = 3
 
 [node name="Button" parent="." index="0"]
-offset_left = -81.0
-offset_top = -58.0
-offset_right = 39.0
-offset_bottom = 107.0
+offset_left = -73.0
+offset_top = -87.0
+offset_right = 47.0
+offset_bottom = 78.0
+
+[node name="turn_counter" parent="." index="1"]
+offset_left = -119.0
+offset_top = -129.0
+offset_right = -79.0
+offset_bottom = -89.0
+
+[node name="ProgressBar" parent="." index="2"]
+offset_left = -69.0
+offset_top = -129.0
+offset_right = 84.0
+offset_bottom = -102.0
 
 [node name="Node" type="Node" parent="." index="3"]
 script = ExtResource("2_73eaf")
@@ -25,3 +36,6 @@ texture = ExtResource("3_e6hcd")
 libraries = {
 "": ExtResource("4_qpiaq")
 }
+
+[node name="CPUParticles2D" parent="." index="7"]
+position = Vector2(0, 80)

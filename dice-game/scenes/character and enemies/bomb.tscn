@@ -28,4 +28,7 @@ libraries = {
 "": ExtResource("4_e7hnr")
 }
 
+[node name="CPUParticles2D" parent="." index="7"]
+position = Vector2(0, 50)
+
 [connection signal="signal_turn_tick" from="." to="enemy_script" method="_on_bomb_signal_turn_tick"]

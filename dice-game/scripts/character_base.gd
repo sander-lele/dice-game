@@ -24,6 +24,7 @@ var heal_per_round = 25
 var rng = RandomNumberGenerator.new()
 
 @onready var turn_label = $turn_counter/turn_label
+@onready var heal_partiles = $CPUParticles2D
 
 func play_hit():
 	$sounds/hit.pitch_scale = rng.randf_range(0.75,1.25)
@@ -33,6 +34,8 @@ func play_heal():
 	if hp != max_hp and hp != 0:
 		$sounds/heal.pitch_scale = rng.randf_range(0.75,1.25)
 		$sounds/heal.play()
+		$AnimationPlayer.play("heal")
+		heal_partiles.emitting = true
 
 func disable_button():
 	$Button.disabled = true
@@ -61,7 +64,8 @@ func attack():
 	$AnimationPlayer.play("attack")
 
 func tic_turn_counter():
-	if visible == true and hp != 0:
+	if visible == true and hp != 0 and turn_counter_start != 0:
+		$sounds/turn_tick.play()
 		turn_counter -= 1
 		turn_label.text = str(turn_counter)
 		emit_signal("signal_turn_tick")
@@ -77,23 +81,24 @@ func hit(damage=0):
 		die()
 
 func heal(heal_amount=10):
-	play_heal()
-	hp = clamp(hp+heal_amount*BatMak.difficulty,0,max_hp)
-	$ProgressBar.value = hp
-	$ProgressBar/Label.text = str(hp)
+	if hp != 0:
+		play_heal()
+		hp = clamp(hp+heal_amount*BatMak.difficulty,0,max_hp)
+		$ProgressBar.value = hp
+		$ProgressBar/Label.text = str(hp)
 
 func revive(heal_amount=10):
 	if hp <= 0:
-		print("revive")
+		hp = clamp(10 * BatMak.difficulty,0,max_hp)
 		play_heal()
 		$AnimationPlayer.play_backwards("die")
-		hp = clamp(10 * BatMak.difficulty,0,max_hp)
 		$ProgressBar.value = hp
 		$ProgressBar/Label.text = str(hp)
 		turn_counter = turn_counter_start
-		visible = true
 
 func die():
+	StatCount.enemies_killed += 1
+	$sounds/death.play()
 	$AnimationPlayer.play("die")
 
 func heal_prot(prot=heal_per_round):
@@ -136,5 +141,6 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 
 func _on_signal_attack() -> void:
 	if turn_counter <= 0:
+		print("yay")
 		turn_counter = turn_counter_start
 		turn_label.text = str(turn_counter)

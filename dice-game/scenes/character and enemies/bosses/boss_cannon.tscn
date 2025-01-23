@@ -6,7 +6,7 @@
 [ext_resource type="AnimationLibrary" uid="uid://ciioa0wrn04fa" path="res://animations/bosscannon.res" id="4_6pw3k"]
 
 [node name="boss_cannon" instance=ExtResource("1_t4u8b")]
-max_hp = 125
+max_hp = 80
 min_roll = 20
 max_roll = 30
 turn_counter_start = 5
@@ -27,3 +27,6 @@ texture = ExtResource("3_od3aq")
 libraries = {
 "": ExtResource("4_6pw3k")
 }
+
+[node name="CPUParticles2D" parent="." index="7"]
+position = Vector2(24, 89)

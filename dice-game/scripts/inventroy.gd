@@ -13,7 +13,7 @@ var buff = {
 	3:["orb of randomness",1,3, "max_roll", "maximum roll value"],
 	4:["orb of hoarding",1,1, "dice_count", "dice count"],
 	5:["orb of life",50,100, "max_hp", "max hp"],
-	6:["orb of regeneration",3,5,"heal_per_round", "heal per round"]
+	6:["orb of regeneration",3,5,"heal_per_round","% heal per round"]
 }
 
 var selected_buffs: Array

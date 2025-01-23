@@ -30,3 +30,6 @@ texture = ExtResource("3_1lcya")
 libraries = {
 "": ExtResource("4_5chl3")
 }
+
+[node name="CPUParticles2D" parent="." index="7"]
+position = Vector2(0, 91)
