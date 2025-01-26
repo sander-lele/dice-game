@@ -30,6 +30,10 @@ func roll(min_roll:int,max_roll:int,dice_count:int,multiplier=1.0):
 		dice.append(dice_result)
 		damage += dice_result
 		draw_dice(dice_result)
+	if dice_count > 6:
+		$Panel.size.y = 150
+	else:
+		$Panel.size.y = 81
 	damage = round(damage * multiplier)
 	dice_stats = [min_roll,max_roll]
 	$roll.play()

@@ -9,10 +9,10 @@
 max_roll = 3
 
 [node name="Button" parent="." index="0"]
-offset_left = -73.0
-offset_top = -87.0
-offset_right = 47.0
-offset_bottom = 78.0
+offset_left = -81.0
+offset_top = -59.0
+offset_right = 38.0
+offset_bottom = 107.0
 
 [node name="turn_counter" parent="." index="1"]
 offset_left = -119.0
@@ -38,4 +38,4 @@ libraries = {
 }
 
 [node name="CPUParticles2D" parent="." index="7"]
-position = Vector2(0, 80)
+position = Vector2(0, 95)

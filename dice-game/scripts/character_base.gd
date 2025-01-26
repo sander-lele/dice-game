@@ -38,10 +38,12 @@ func play_heal():
 		heal_partiles.emitting = true
 
 func disable_button():
-	$Button.disabled = true
+	if hp != 0:
+		$Button.disabled = true
 
 func enable_button():
-	$Button.disabled = false
+	if hp != 0:
+		$Button.disabled = false
 
 func _ready() -> void:
 	max_hp *= BatMak.difficulty
@@ -98,6 +100,7 @@ func revive(heal_amount=10):
 
 func die():
 	StatCount.enemies_killed += 1
+	$Button.disabled = true
 	$sounds/death.play()
 	$AnimationPlayer.play("die")
 
@@ -135,7 +138,7 @@ func counter_visible(boolean:bool):
 
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
-	if anim_name == "attack":
+	if anim_name == "attack" or anim_name == "hit":
 		$AnimationPlayer.play("idle")
 
 

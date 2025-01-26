@@ -8,11 +8,12 @@
 [node name="cannon_man" instance=ExtResource("1_ug5j0")]
 max_hp = 75
 turn_counter_start = 3
+metadata/_edit_vertical_guides_ = [-18.0]
 
 [node name="Button" parent="." index="0"]
-offset_left = -45.0
+offset_left = -24.0
 offset_top = -57.0
-offset_right = 18.0
+offset_right = 24.0
 offset_bottom = 48.0
 
 [node name="enemy_script" type="Node" parent="." index="3"]

@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://ca3ghrrmpayuj"]
+[gd_scene load_steps=5 format=3 uid="uid://ca3ghrrmpayuj"]
 
 [ext_resource type="PackedScene" uid="uid://dgjw0g3w0xb3y" path="res://scenes/character and enemies/character_base.tscn" id="1_64kan"]
 [ext_resource type="Script" path="res://scripts/enemies/healer_script.gd" id="3_m5c6g"]
+[ext_resource type="Texture2D" uid="uid://dp7equh36045h" path="res://assets/healer.png" id="3_oiy56"]
+[ext_resource type="AnimationLibrary" uid="uid://g7teel7nbcin" path="res://animations/healer.res" id="4_vxwe4"]
 
 [node name="healer" instance=ExtResource("1_64kan")]
 max_hp = 50
@@ -10,3 +12,13 @@ attack_type = "passive"
 
 [node name="enemy_script" type="Node" parent="." index="3"]
 script = ExtResource("3_m5c6g")
+
+[node name="sprite" parent="." index="4"]
+position = Vector2(-26, 146)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_oiy56")
+
+[node name="AnimationPlayer" parent="." index="6"]
+libraries = {
+"": ExtResource("4_vxwe4")
+}

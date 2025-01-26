@@ -1,0 +1,107 @@
+[gd_scene load_steps=4 format=3 uid="uid://cf5q0db8tix4j"]
+
+[ext_resource type="Script" path="res://scenes/game parts/settings.gd" id="1_6k7b3"]
+[ext_resource type="Theme" uid="uid://dyln1jvjn76v8" path="res://game UI theme.tres" id="1_sr8q3"]
+[ext_resource type="AudioStream" uid="uid://b8guc77cwnf60" path="res://SFX/dice_result.wav" id="3_2p747"]
+
+[node name="settings" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_6k7b3")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.465)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+theme = ExtResource("1_sr8q3")
+
+[node name="Panel" type="Panel" parent="Control"]
+custom_minimum_size = Vector2(500, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 14.0
+offset_top = 20.0
+offset_right = -16.0
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Panel/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="Control/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Sound:"
+
+[node name="sound" type="HSlider" parent="Control/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/Panel/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Music:"
+
+[node name="music" type="HSlider" parent="Control/Panel/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="close" type="Button" parent="Control/Panel" groups=["button"]]
+layout_mode = 0
+offset_left = 460.0
+offset_right = 500.0
+offset_bottom = 40.0
+text = "X"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_2p747")
+volume_db = -10.0
+bus = &"sound"
+
+[connection signal="drag_ended" from="Control/Panel/VBoxContainer/HBoxContainer/sound" to="." method="_on_sound_drag_ended"]
+[connection signal="drag_started" from="Control/Panel/VBoxContainer/HBoxContainer/sound" to="." method="_on_sound_drag_started"]
+[connection signal="value_changed" from="Control/Panel/VBoxContainer/HBoxContainer/sound" to="." method="_on_sound_value_changed"]
+[connection signal="value_changed" from="Control/Panel/VBoxContainer/HBoxContainer2/music" to="." method="_on_music_value_changed"]
+[connection signal="pressed" from="Control/Panel/close" to="." method="_on_close_pressed"]

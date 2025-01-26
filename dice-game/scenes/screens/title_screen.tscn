@@ -1,10 +1,19 @@
-[gd_scene load_steps=11 format=3 uid="uid://s8iey18wryda"]
+[gd_scene load_steps=20 format=3 uid="uid://s8iey18wryda"]
 
 [ext_resource type="Script" path="res://scripts/screens/title_screen.gd" id="1_o8cvb"]
 [ext_resource type="Theme" uid="uid://dyln1jvjn76v8" path="res://game UI theme.tres" id="1_ruexh"]
 [ext_resource type="Shader" path="res://title.gdshader" id="2_idkst"]
 [ext_resource type="Texture2D" uid="uid://di1cs0dwucefq" path="res://assets/vignette.png" id="3_xqsvd"]
 [ext_resource type="Texture2D" uid="uid://nrjd5vsccpax" path="res://assets/title.png" id="5_5kuwn"]
+[ext_resource type="Script" path="res://scripts/guide.gd" id="6_yfkci"]
+[ext_resource type="Texture2D" uid="uid://bfq51lt54mbyg" path="res://assets/guide pic 1.png" id="7_cj2de"]
+[ext_resource type="Script" path="res://scripts/sound_manager.gd" id="7_gakmx"]
+[ext_resource type="AudioStream" uid="uid://ctd380bq6e7mh" path="res://SFX/Cursor.wav" id="8_7jrn0"]
+[ext_resource type="Texture2D" uid="uid://dc6jvm28wby5m" path="res://assets/guide pic 2.png" id="8_eguce"]
+[ext_resource type="Texture2D" uid="uid://cofe88mt2gmif" path="res://assets/guide pic 3.png" id="9_kng03"]
+[ext_resource type="AudioStream" uid="uid://cxr6ha6cbel6" path="res://SFX/tapping.wav" id="9_w08yd"]
+[ext_resource type="Texture2D" uid="uid://cru6q7nggo03l" path="res://assets/guide pic 4.png" id="10_kcyyi"]
+[ext_resource type="Texture2D" uid="uid://b04m4sh5gdfam" path="res://assets/guide pic 5.png" id="11_svfjm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yjbig"]
 shader = ExtResource("2_idkst")
@@ -127,17 +136,23 @@ layout_mode = 2
 mouse_filter = 2
 alignment = 1
 
-[node name="play" type="Button" parent="HBoxContainer/VBoxContainer"]
+[node name="play" type="Button" parent="HBoxContainer/VBoxContainer" groups=["button"]]
 custom_minimum_size = Vector2(0, 75)
 layout_mode = 2
 focus_mode = 0
 text = "play"
 
-[node name="guide" type="Button" parent="HBoxContainer/VBoxContainer"]
+[node name="guide" type="Button" parent="HBoxContainer/VBoxContainer" groups=["button"]]
 custom_minimum_size = Vector2(0, 75)
 layout_mode = 2
 focus_mode = 0
 text = "guide"
+
+[node name="settings" type="Button" parent="HBoxContainer/VBoxContainer" groups=["button"]]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+focus_mode = 0
+text = "settings"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -155,6 +170,7 @@ mouse_filter = 2
 color = Color(0, 0, 0, 0)
 
 [node name="guide" type="Panel" parent="."]
+visible = false
 custom_minimum_size = Vector2(950, 520)
 layout_mode = 1
 anchors_preset = 8
@@ -164,6 +180,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("6_yfkci")
 
 [node name="pages" type="Control" parent="guide"]
 layout_mode = 1
@@ -188,16 +205,28 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 20
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="guide/pages/page1/VBoxContainer"]
+[node name="Control" type="Control" parent="guide/pages/page1/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
+[node name="TextureRect" type="TextureRect" parent="guide/pages/page1/VBoxContainer"]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("7_cj2de")
+expand_mode = 1
+stretch_mode = 5
+
 [node name="Label" type="Label" parent="guide/pages/page1/VBoxContainer"]
-custom_minimum_size = Vector2(500, 0)
+custom_minimum_size = Vector2(500, 200)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Dungeon dice is a game where you roll dice to fight against an endless hoard of enemies"
+horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="page2" type="Control" parent="guide/pages"]
@@ -206,8 +235,65 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 25.0
+offset_right = -21.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="guide/pages/page2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="guide/pages/page2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+text = "On Your turn you have two options: Fight or Reroll"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="guide/pages/page2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="guide/pages/page2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="guide/pages/page2/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Reroll lets you reroll dice to get more damage. You can reroll up to 3 times per turn."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="guide/pages/page2/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+texture = ExtResource("8_eguce")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="guide/pages/page2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="guide/pages/page2/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Fighting is how you end your turn. To fight press the \"Fight\" button and then click on an enemy."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="guide/pages/page2/VBoxContainer/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+texture = ExtResource("9_kng03")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="page3" type="Control" parent="guide/pages"]
 visible = false
@@ -218,6 +304,30 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="VBoxContainer" type="VBoxContainer" parent="guide/pages/page3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="guide/pages/page3/VBoxContainer"]
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 2
+text = "Every 4th battle will be a boss battle. Bosses are stronger variants of regular enemies."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+justification_flags = 171
+
+[node name="TextureRect" type="TextureRect" parent="guide/pages/page3/VBoxContainer"]
+custom_minimum_size = Vector2(0, 270)
+layout_mode = 2
+texture = ExtResource("10_kcyyi")
+expand_mode = 1
+stretch_mode = 5
+
 [node name="page4" type="Control" parent="guide/pages"]
 visible = false
 layout_mode = 1
@@ -226,6 +336,30 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="guide/pages/page4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label2" type="Label" parent="guide/pages/page4/VBoxContainer"]
+custom_minimum_size = Vector2(0, 170)
+layout_mode = 2
+text = "After the boss battle you can select one of 3 buffs or heal back 25% of your max HP."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+justification_flags = 171
+
+[node name="TextureRect" type="TextureRect" parent="guide/pages/page4/VBoxContainer"]
+custom_minimum_size = Vector2(0, 320)
+layout_mode = 2
+texture = ExtResource("11_svfjm")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="page5" type="Control" parent="guide/pages"]
 visible = false
@@ -236,8 +370,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="page6" type="Control" parent="guide/pages"]
-visible = false
+[node name="VBoxContainer" type="VBoxContainer" parent="guide/pages/page5"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -245,7 +378,25 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="back" type="Button" parent="guide"]
+[node name="Label2" type="Label" parent="guide/pages/page5/VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+text = "After that the enemies get a little stronger and the process repeats."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+justification_flags = 171
+
+[node name="Label3" type="Label" parent="guide/pages/page5/VBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+text = "Now that you know the basic, you can exit the guide, press the \"play\" button and see how far you can get."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+justification_flags = 171
+
+[node name="back" type="Button" parent="guide" groups=["button"]]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 1
 anchors_preset = 2
@@ -255,9 +406,10 @@ offset_top = -40.0
 offset_right = 40.0
 grow_vertical = 0
 focus_mode = 0
+disabled = true
 text = "back"
 
-[node name="next" type="Button" parent="guide"]
+[node name="next" type="Button" parent="guide" groups=["button"]]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 1
 anchors_preset = 3
@@ -272,7 +424,7 @@ grow_vertical = 0
 focus_mode = 0
 text = "next"
 
-[node name="exit" type="Button" parent="guide"]
+[node name="exit" type="Button" parent="guide" groups=["button"]]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 1
 anchors_preset = 1
@@ -284,5 +436,25 @@ grow_horizontal = 0
 focus_mode = 0
 text = "X"
 
+[node name="Sound manager" type="Node" parent="."]
+script = ExtResource("7_gakmx")
+
+[node name="hover" type="AudioStreamPlayer" parent="Sound manager"]
+process_mode = 3
+stream = ExtResource("8_7jrn0")
+volume_db = -5.0
+max_polyphony = 5
+bus = &"sound"
+
+[node name="pressed" type="AudioStreamPlayer" parent="Sound manager"]
+process_mode = 3
+stream = ExtResource("9_w08yd")
+max_polyphony = 5
+bus = &"sound"
+
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/guide" to="." method="_on_guide_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="guide/back" to="guide" method="_on_back_pressed"]
+[connection signal="pressed" from="guide/next" to="guide" method="_on_next_pressed"]
+[connection signal="pressed" from="guide/exit" to="guide" method="_on_exit_pressed"]

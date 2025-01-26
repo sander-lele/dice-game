@@ -28,7 +28,6 @@ var enemy_sets = {
 	2:[dag,ham,shi,can,bom],
 	3:[dag,ham,shi,can,nec,bom],
 	4:[dag,ham,shi,can,bom,hel,nec],
-	5:[hel]
 }
 
 var bosses = [bdag,bshi,bham,bbom,bcan,bhel,bnec]
@@ -41,7 +40,7 @@ func create_set():
 	var current_set = []
 	for i in rng.randi_range(enemy_cap_min,enemy_cap):
 		var enemies
-		if loop <= 5:
+		if loop <= 4:
 			enemies = enemy_sets[loop]
 		else:
 			enemies = enemy_sets[4]

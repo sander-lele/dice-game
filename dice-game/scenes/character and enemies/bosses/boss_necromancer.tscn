@@ -19,6 +19,7 @@ offset_bottom = 76.0
 [node name="Node" type="Node" parent="." index="3"]
 script = ExtResource("2_qnjhm")
 heal_amount = 25
+is_boss = true
 
 [node name="sprite" parent="." index="4"]
 position = Vector2(-26, 10)

@@ -87,6 +87,7 @@ max_polyphony = 5
 bus = &"sound"
 
 [node name="music" type="AudioStreamPlayer" parent="Sound manager"]
+process_mode = 3
 stream = ExtResource("5_j2j2p")
 volume_db = -10.0
 autoplay = true
@@ -95,6 +96,7 @@ bus = &"music"
 [node name="Parallax2D" type="Parallax2D" parent="."]
 scroll_offset = Vector2(0, -134)
 repeat_size = Vector2(873, 0)
+repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
 position = Vector2(437, 324)
@@ -111,26 +113,61 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="character_base" parent="battle_UI" instance=ExtResource("8_s70le")]
-position = Vector2(135, 169)
+position = Vector2(135, 140)
 dice_count = 4
 
 [node name="enemy_batch_1" type="Control" parent="battle_UI"]
-anchors_preset = 0
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 1.0
+offset_top = -169.0
+offset_right = 1.0
+offset_bottom = -169.0
+grow_vertical = 2
 
 [node name="enemy_batch_2" type="Control" parent="battle_UI"]
-anchors_preset = 0
-offset_left = 1700.0
-offset_right = 1700.0
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -152.0
+offset_top = -169.0
+offset_right = -152.0
+offset_bottom = -169.0
+grow_horizontal = 0
+grow_vertical = 2
 
 [node name="enemy_batch_3" type="Control" parent="battle_UI"]
-anchors_preset = 0
-offset_left = 1700.0
-offset_right = 1700.0
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -152.0
+offset_top = -169.0
+offset_right = -152.0
+offset_bottom = -169.0
+grow_horizontal = 0
+grow_vertical = 2
 
 [node name="enemy_batch_4" type="Control" parent="battle_UI"]
-anchors_preset = 0
-offset_left = 1700.0
-offset_right = 1700.0
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -152.0
+offset_top = -169.0
+offset_right = -152.0
+offset_bottom = -169.0
+grow_horizontal = 0
+grow_vertical = 2
 
 [node name="bottom_UI" type="Control" parent="."]
 custom_minimum_size = Vector2(1150, 190)
@@ -214,8 +251,17 @@ color = Color(0, 0, 0, 0)
 visible = false
 layout_mode = 1
 
+[node name="settings_button" type="Button" parent="." groups=["button"]]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 0
+offset_left = 1020.0
+offset_right = 1150.0
+offset_bottom = 50.0
+text = "settins"
+
 [connection signal="pressed" from="bottom_UI/HBoxContainer/button_panel/VBoxContainer/Fight" to="." method="_on_fight_pressed"]
 [connection signal="pressed" from="bottom_UI/HBoxContainer/button_panel/VBoxContainer/Reroll" to="." method="_on_reroll_pressed"]
 [connection signal="animation_finished" from="screen_transition" to="." method="_on_screen_transition_animation_finished"]
 [connection signal="buff_selected" from="buff_select" to="." method="_on_buff_select_buff_selected"]
 [connection signal="heal" from="buff_select" to="." method="_on_buff_select_heal"]
+[connection signal="pressed" from="settings_button" to="." method="_on_settings_button_pressed"]

@@ -17,7 +17,7 @@ var player_attack = false
 
 @warning_ignore("shadowed_global_identifier")
 var round = 1
-var enemy_positions = [Vector2(1051,140),Vector2(874,40),Vector2(874,234),Vector2(682,134)]
+var enemy_positions = [Vector2(1051,140),Vector2(874,40),Vector2(874,240),Vector2(682,140)]
 
 func _ready() -> void:
 	rng.randomize()
@@ -137,7 +137,7 @@ func check_boss_end():
 		set_battle()
 		player.heal_prot(25)
 		buff_selection.show_buff()
-		await  buff_selection.buff_selected
+		await  buff_selection.selection_done
 		tween()
 		enable_all_buttons()
 		_on_roll_pressed()
@@ -147,10 +147,10 @@ func check_boss_end():
 
 func new_loop():
 	round = 1
-	BatMak.difficulty += 0.2
+	BatMak.difficulty += 0.1
 	BatMak.loop += 1
 	StatCount.rounds += 1
-	if BatMak.enemy_cap <= 4:
+	if BatMak.enemy_cap < 3:
 		BatMak.enemy_cap += 1
 	for i in $battle_UI.get_child_count():
 		#this feels dumb but eh. this if statement is so that the loop skips over the player.
@@ -213,8 +213,12 @@ func _on_screen_transition_animation_finished(anim_name: StringName) -> void:
 
 func _on_buff_select_buff_selected(array) -> void:
 	await  $battle_UI/character_base._on_buff_select_buff_selected(array)
-	player_stats = $battle_UI/player.get_stats()
+	player_stats = player.get_stats()
 
 
 func _on_buff_select_heal() -> void:
-	$battle_UI/player.heal_prot(25)
+	player.heal_prot(25)
+
+
+func _on_settings_button_pressed() -> void:
+	Settings.visible = true

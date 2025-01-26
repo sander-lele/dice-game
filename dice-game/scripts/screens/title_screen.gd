@@ -8,4 +8,8 @@ func _on_play_pressed() -> void:
 
 
 func _on_guide_pressed() -> void:
-	pass
+	$guide.visible = true
+
+
+func _on_settings_pressed() -> void:
+	Settings.visible = true
