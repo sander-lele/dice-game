@@ -10,6 +10,12 @@ max_hp = 50
 turn_counter_start = 4
 attack_type = "passive"
 
+[node name="Button" parent="." index="0"]
+offset_left = -43.0
+offset_top = 19.0
+offset_right = 45.0
+offset_bottom = 146.0
+
 [node name="enemy_script" type="Node" parent="." index="3"]
 script = ExtResource("3_m5c6g")
 

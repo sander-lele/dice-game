@@ -112,12 +112,13 @@ func heal_prot(prot=heal_per_round):
 	$ProgressBar/Label.text = str(hp)
 
 func over_heal(heal_amount=25):
-	play_heal()
-	max_hp += roundi((heal_amount*BatMak.difficulty)/2)
-	hp = clamp(hp+heal_amount*BatMak.difficulty,0,max_hp)
-	$ProgressBar.max_value = max_hp
-	$ProgressBar.value = hp
-	$ProgressBar/Label.text = str(hp)
+	if hp != 0:
+		play_heal()
+		max_hp += roundi((heal_amount*BatMak.difficulty)/2)
+		hp = clamp(hp+heal_amount*BatMak.difficulty,0,max_hp)
+		$ProgressBar.max_value = max_hp
+		$ProgressBar.value = hp
+		$ProgressBar/Label.text = str(hp)
 
 func _on_button_pressed() -> void:
 	emit_signal("enemy_selected",self)
@@ -138,7 +139,7 @@ func counter_visible(boolean:bool):
 
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
-	if anim_name == "attack" or anim_name == "hit":
+	if anim_name != "die":
 		$AnimationPlayer.play("idle")
 
 

@@ -58,7 +58,7 @@ func create_boss_set():
 			enemies = enemy_sets[4]
 		var enemy
 		if i == 0:
-			enemy = bosses[rng.randi_range(0,enemies.size()-1)]
+			enemy = bosses[5]
 		else:
 			enemy = enemies[rng.randi_range(0,enemies.size()-1)]
 		current_set.append(enemy)

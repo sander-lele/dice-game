@@ -11,9 +11,9 @@ turn_counter_start = 4
 
 [node name="Button" parent="." index="0"]
 offset_left = -84.0
-offset_top = -91.0
+offset_top = -78.0
 offset_right = 81.0
-offset_bottom = 113.0
+offset_bottom = 134.0
 
 [node name="turn_counter" parent="." index="1"]
 offset_left = -111.0

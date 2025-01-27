@@ -102,6 +102,8 @@ repeat_times = 3
 position = Vector2(437, 324)
 texture = ExtResource("7_mvhkd")
 
+[node name="dice_manager" parent="." instance=ExtResource("8_ks3nu")]
+
 [node name="battle_UI" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -244,8 +246,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0)
-
-[node name="dice_manager" parent="." instance=ExtResource("8_ks3nu")]
 
 [node name="buff_select" parent="." instance=ExtResource("3_3cuuu")]
 visible = false

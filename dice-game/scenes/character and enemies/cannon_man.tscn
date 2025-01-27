@@ -7,6 +7,8 @@
 
 [node name="cannon_man" instance=ExtResource("1_ug5j0")]
 max_hp = 75
+min_roll = 10
+max_roll = 35
 turn_counter_start = 3
 metadata/_edit_vertical_guides_ = [-18.0]
 

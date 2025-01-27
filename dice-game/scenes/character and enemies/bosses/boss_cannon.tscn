@@ -8,7 +8,7 @@
 [node name="boss_cannon" instance=ExtResource("1_t4u8b")]
 max_hp = 80
 min_roll = 20
-max_roll = 30
+max_roll = 40
 turn_counter_start = 5
 
 [node name="Button" parent="." index="0"]
